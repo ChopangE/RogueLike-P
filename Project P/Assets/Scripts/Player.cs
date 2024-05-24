@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     public float jumpPower = 5f;
     public int jumpCount = 0;
     public float maxSpeed = 5f;
+    int isRight = 1;
+    float inputX;
 
 
     public State playerState { get; set; } = State.Idle;
@@ -25,11 +27,19 @@ public class Player : MonoBehaviour {
     public float wallSildingSpeed;
     bool isWall;
     bool isWallJump;
-    int isRight = 1;
+
+    [Header("# Ladder")]
+    public float ladderSpeed;
+    bool isLadder;
+    bool isLadding;
+    float initGravity;
+    float ladderPosX;
+
     [Header("# Attack")]
     public bool isAttack;
     public float curAttack;
     float nowAttack;
+
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer sprite;
@@ -38,8 +48,12 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
     }
-    
+
+    void Start() {
+        initGravity = rb.gravityScale;
+    }
     void Update() {
         nowAttack -= Time.deltaTime;
         
@@ -57,7 +71,7 @@ public class Player : MonoBehaviour {
                 Vector2 WallJumpDir = new Vector2(-isRight * wallJumpPowerSide, wallJumpPowerUp);
                 rb.velocity = WallJumpDir;
                 FlipPlayer();
-                jumpCount += 2;
+                jumpCount += 1;
                 anim.SetBool("Jump", true);
                 anim.SetBool("isFall", false);
 
@@ -70,25 +84,36 @@ public class Player : MonoBehaviour {
         }
         if (isWallJump || isAttack) return;
         //Attack
-        if (Input.GetKeyDown(KeyCode.Z) && jumpCount == 0 && nowAttack < 0) {
+        if (Input.GetKeyDown(KeyCode.Z) && jumpCount == 0 && nowAttack < 0 && !isLadding) {
             nowAttack = curAttack;
             anim.SetTrigger("Attack");
             rb.velocity = Vector2.zero;
         }
         //Jump
-        if (Input.GetButtonDown("Jump") && jumpCount < 2) {
-            rb.velocity = Vector2.zero;
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            jumpCount++;
-            anim.SetBool("Jump", true);
-            anim.SetBool("isFall", false);
+        if (Input.GetButtonDown("Jump") && jumpCount < 2 ) {
+            if (isLadding) {
+                if (Input.GetButtonDown("Jump")) {
+                    if ((inputX > 0 && isRight < 0) || (inputX < 0 && isRight > 0)) {
+                        FlipPlayer();
+                    }
+                    Vector2 ladderJump = new Vector2(inputX * 5f, 3f);
+                    rb.AddForce(ladderJump, ForceMode2D.Impulse);
+                }
+            }
+            else {
+                rb.velocity = Vector2.zero;
+                rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                jumpCount++;
+                anim.SetBool("Jump", true);
+                anim.SetBool("isFall", false);
+            }
         }
-        else if (Input.GetButtonUp("Jump") && rb.velocity.y > 0) {
+        else if (Input.GetButtonUp("Jump") && rb.velocity.y > 0 && !isLadding) {
             rb.velocity = rb.velocity * 0.5f;
         }
 
         //Run and stop
-        if (Input.GetButtonUp("Horizontal") && jumpCount == 0 && rb.velocity.y >= 0) {
+        if (Input.GetButtonUp("Horizontal") && jumpCount == 0 ) {
             rb.velocity = Vector2.zero;
         }
 
@@ -105,16 +130,49 @@ public class Player : MonoBehaviour {
             anim.SetBool("isFall", true);
 
         }
-
-
+        
+        //ladder
+        if(isLadder && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))) {
+            isLadder = false;
+            rb.velocity = Vector2.zero;
+            isLadding = true;
+            rb.gravityScale = 0f;
+            jumpCount = 1;
+            transform.position = new Vector3(ladderPosX, transform.position.y,0);
+            //anim설정
+        }
+        
+        if(isLadding && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow))){
+            rb.velocity = Vector2.zero;
+        }
     }
     
     void FixedUpdate() {
         if (isAttack || isWallJump) return;
 
+        if (isLadding) {
+            float ver = Input.GetAxisRaw("Vertical");
+            if (ver != 0) {
+                rb.velocity = new Vector2(rb.velocity.x, ver * ladderSpeed);
+                //anim 실행
+            }
+
+        }
         //Input Manager
-        float inputX = Input.GetAxisRaw("Horizontal");
-        if((inputX > 0 && isRight <0) || (inputX <0 && isRight > 0)) {
+        inputX = Input.GetAxisRaw("Horizontal");
+        //if (isLadding) {
+        //    if (Input.GetButtonDown("Jump")) {
+        //        if ((inputX > 0 && isRight < 0) || (inputX < 0 && isRight > 0)) {
+        //            FlipPlayer();
+        //        }
+        //        Vector2 ladderJump = new Vector2(inputX * 5f, 3f);
+        //        rb.AddForce(ladderJump, ForceMode2D.Impulse);
+        //    }
+            
+        //}
+        if (isLadding) return;
+
+        if ((inputX > 0 && isRight <0) || (inputX <0 && isRight > 0)) {
             FlipPlayer();
         }
         rb.AddForce(Vector2.right * inputX, ForceMode2D.Impulse);
@@ -127,6 +185,7 @@ public class Player : MonoBehaviour {
         else if (rb.velocity.x < -maxSpeed) {
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
+
         
     }
     void FlipPlayer() {
@@ -147,11 +206,24 @@ public class Player : MonoBehaviour {
 
         else {
             if (isWall) {
-                jumpCount = 0;
+                jumpCount = 1;
             }
-            rb.velocity = Vector2.zero;
+        //    rb.velocity = Vector2.zero;
         }
 
+    }
+    void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Ladder")) {
+            isLadder = true;
+            ladderPosX = collision.transform.position.x;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("Ladder")) {
+            isLadding = false;
+            rb.gravityScale = initGravity;
+        }
     }
     void FreezeMove() {
         isWallJump = false;
