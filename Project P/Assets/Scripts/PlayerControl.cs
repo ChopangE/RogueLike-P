@@ -266,7 +266,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void PlayerMove() {
-        if (isAttack || isWallJump || isDash) return;
+        if (isAttack || isWallJump || isDash || isDashAttack) return;
         isFlip();
         rb.AddForce(Vector2.right * inputVec.x, ForceMode2D.Impulse);
         if (rb.velocity.x > maxSpeed) {
@@ -284,19 +284,14 @@ public class PlayerControl : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
 
         if (collision.GetContact(0).normal.y > 0.6f) {
-
             if (jumpCount > 0) rb.velocity = Vector2.zero;
-
             jumpCount = 0;
-            Debug.Log("Ground");
         }
-
         else {
             if (isWall) {
                 jumpCount = 1;
             }
         }
-
     }
     #endregion
 
