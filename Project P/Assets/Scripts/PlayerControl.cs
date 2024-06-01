@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Switch;
 using UnityEngine.Windows;
 
 public class PlayerControl : MonoBehaviour
@@ -19,7 +20,7 @@ public class PlayerControl : MonoBehaviour
     int isRight;
     public Vector2 inputVec;
     int jumpCount;
-
+    int gravity;
     [Header("# Dash")]
     public bool isDash;
     public bool dashEnable;
@@ -38,9 +39,9 @@ public class PlayerControl : MonoBehaviour
     public bool isWallJump;
 
     [Header("# Ladder")]
-    public float ladderSpeed;
+    public BoxCollider2D ladderCheck;
+    public float climbSpeed;
     bool isLadder;
-    bool isLadding;
     float initGravity;
     float ladderPosX;
 
@@ -64,7 +65,8 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = 1;    //임시코드
+        rb.gravityScale = gravity;    //임시코드
+        Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
                 break;
@@ -75,6 +77,9 @@ public class PlayerControl : MonoBehaviour
                 break;
             case State.Dashing:
                 //UpdateDash();
+                break;
+            case State.Ladding:
+                UpdateLadding();
                 break;
         }
         AnimationUpdate();
@@ -89,6 +94,7 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        gravity = 1;
 
         PlayerState = State.Idle;
         isRight = 1;
@@ -104,12 +110,19 @@ public class PlayerControl : MonoBehaviour
         isAttack = false;
 
         isSlide = false;
+
+        ladderCheck = GetComponentInChildren<BoxCollider2D>();
+
     }
     void StateCheck() {
         isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);
         if (isWall) {
             PlayerState = State.Walling;
             isWallJump = false;
+            return;
+        }
+        if (isLadder) {
+            PlayerState = State.Ladding;
             return;
         }
         if (isDash) {
@@ -142,6 +155,7 @@ public class PlayerControl : MonoBehaviour
         anim.SetBool("isWall", isWall);
         anim.SetBool("isDash", isDash);
         anim.SetBool("isDashAttack", isDashAttack);
+        anim.SetBool("isLadding", isLadder);
 
     }
     #region Input
@@ -172,6 +186,12 @@ public class PlayerControl : MonoBehaviour
                     rb.velocity = WallJumpDir;
                     FlipPlayer();
                     jumpCount += 1;                  
+                    break;
+                case State.Ladding:
+                    isLadder = false;
+                    rb.AddForce(inputVec * jumpPower, ForceMode2D.Impulse);
+                    jumpCount++;
+
                     break;
             }
             
@@ -223,16 +243,19 @@ public class PlayerControl : MonoBehaviour
     public void ActionUpDown(InputAction.CallbackContext context) {
         inputVec.y = context.ReadValue<float>();
         if (context.started) {
-            if (inputVec.y < 0) {
-                switch (PlayerState) {
-                    case State.Running:
-                        anim.SetTrigger("Slide");
-                        break;
-                }
+            switch (PlayerState) {
+                case State.Running:
+                    if(inputVec.y < 0) anim.SetTrigger("Slide");
+                    else if(inputVec.y > 0) StartLadding();
+                    break;
+                case State.Idle:
+                case State.Jumping:
+                case State.Falling:
+                    StartLadding();
+                    break;
+                
             }
-            else if(inputVec.y > 0) {
-                //ladder
-            }
+            
 
         }
 
@@ -253,6 +276,84 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSildingSpeed);
     }
     
+    void StartLadding() {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+        foreach (Collider2D collider in colliders) {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")) {
+                isLadder = true;
+                BoxCollider2D colBc = collider.gameObject.GetComponent<BoxCollider2D>();
+                float x_pos = colBc.bounds.center.x;
+                float y_pos = Mathf.Clamp(transform.position.y, colBc.bounds.center.y - colBc.bounds.extents.y + 0.1f, colBc.bounds.center.y + colBc.bounds.extents.y - 0.1f);
+                transform.position = new Vector2(x_pos, y_pos);
+                rb.velocity = Vector2.zero;
+                break;
+
+            }
+        }
+    }
+    void LadderCheck() {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+        foreach (Collider2D collider in colliders) {
+            isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
+            if (isLadder) {
+                break;
+            }
+        }
+    }
+    void UpdateLadding() {
+        //double check
+        if (!isLadder) {
+            EndLadding();
+            return;
+        }
+        LadderCheck();
+        if (!isLadder) {
+            EndLadding();
+            return;
+        }
+
+        float direction = inputVec.y;
+        if(direction == 0) {
+            StopLadding();
+        }
+        else {
+            GoLadding();
+        }
+        //Vector2 start = new Vector2(ladderCheck.bounds.center.x, ladderCheck.bounds.center.y + (ladderCheck.bounds.extents.y + 0.05f) * direction);
+
+        //RaycastHit2D hit = Physics2D.Raycast(start, Vector2.up * direction, 0.1f, LayerMask.GetMask("Ladder"));
+
+        //if (hit.collider == null) {
+        //    Vector2 start2 = new Vector2(ladderCheck.bounds.center.x, ladderCheck.bounds.center.y + (ladderCheck.bounds.extents.y) * direction);
+        //    RaycastHit2D hit2 = Physics2D.Raycast(start2, Vector2.up * direction, 1f, LayerMask.GetMask("Ground"));
+
+        //    if (hit2.collider == null) {
+        //        StopLadding();
+        //        return;
+        //    }
+
+        //    // transform.position = new Vector2(transform.position.x, hit2.collider.bounds.center.y + hit2.collider.bounds.extents.y + bc.bounds.extents.y);
+
+        //    EndLadding(new Vector2(transform.position.x, hit2.collider.bounds.center.y + hit2.collider.bounds.extents.y + ladderCheck.bounds.extents.y));
+
+        //    return;
+        //}
+    }
+    void GoLadding() {
+        rb.velocity = new Vector2(0, inputVec.y * climbSpeed);
+        gravity = 1;
+        anim.speed = 1f;
+    }
+    void StopLadding() {
+        rb.velocity = Vector2.zero;
+        gravity = 0;
+        anim.speed = 0f;
+    }
+    void EndLadding() {
+        isLadder = false;
+        gravity = 1;
+        anim.speed = 1f;
+    }
     public void dashEnd() {
         isDash = false;
         rb.velocity = Vector2.zero;
@@ -266,7 +367,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void PlayerMove() {
-        if (isAttack || isWallJump || isDash || isDashAttack) return;
+        if (isAttack || isWallJump || isDash || isDashAttack || isLadder) return;
         isFlip();
         rb.AddForce(Vector2.right * inputVec.x, ForceMode2D.Impulse);
         if (rb.velocity.x > maxSpeed) {
