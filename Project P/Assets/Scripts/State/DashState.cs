@@ -21,12 +21,12 @@ public class DashState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         playerControl.isDash = false;
-        if (playerControl.isDashAttack) {
-            animator.Play("Dash-Attack");
-        }
-        else {
-            animator.Play("Idle");
-        }
+        //if (playerControl.isDashAttack) {
+        //    animator.Play("Dash-Attack");
+        //}
+        //else {
+        //    animator.Play("Idle");
+        //}
         rb.velocity = Vector2.zero;
     }
 

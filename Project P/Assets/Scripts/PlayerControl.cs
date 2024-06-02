@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
             PlayerState = State.Dashing;
             return;
         }
-        if (isAttack) {
+        if (isAttack || isDashAttack) {
             PlayerState = State.Attacking;
             return;
         }
