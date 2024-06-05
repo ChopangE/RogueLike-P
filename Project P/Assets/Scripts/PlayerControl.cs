@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -277,7 +278,6 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSildingSpeed);
     }
     void DownLadding() {
-        Debug.Log("hit");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * inputVec.y, 1f, LayerMask.GetMask("Ladder"));
         if(hit) {
             isLadder = true;
@@ -325,8 +325,9 @@ public class PlayerControl : MonoBehaviour
         }
         else {
             GoLadding();
+            if(direction < 0) CheckGround();
         }
-        
+
     }
     void GoLadding() {
         rb.velocity = new Vector2(0, inputVec.y * climbSpeed);
@@ -342,6 +343,14 @@ public class PlayerControl : MonoBehaviour
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
+    }
+    void CheckGround() {
+        Debug.Log("check");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
+        if (hit) {
+            EndLadding();
+            rb.velocity = Vector2.zero;
+        }
     }
     public void dashEnd() {
         isDash = false;
@@ -383,6 +392,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+    
     #endregion
 
     #region coolTime

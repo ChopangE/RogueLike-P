@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7493224429860581408}
   - component: {fileID: 6255987416588724393}
   - component: {fileID: 3798707937790366141}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TX Tileset Ground_0
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 1
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
