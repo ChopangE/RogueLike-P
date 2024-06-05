@@ -17,8 +17,8 @@ public class PlayerControl : MonoBehaviour
     [Header("# Player Move")]
     public float jumpPower = 5f;
     public float maxSpeed = 5f;
-    int isRight;
     public Vector2 inputVec;
+    int isRight;
     int jumpCount;
     int gravity;
     [Header("# Dash")]
@@ -256,7 +256,6 @@ public class PlayerControl : MonoBehaviour
                 
             }
             
-
         }
 
     }
@@ -301,7 +300,6 @@ public class PlayerControl : MonoBehaviour
         }
     }
     void UpdateLadding() {
-        //double check
         if (!isLadder) {
             EndLadding();
             return;
@@ -319,25 +317,7 @@ public class PlayerControl : MonoBehaviour
         else {
             GoLadding();
         }
-        //Vector2 start = new Vector2(ladderCheck.bounds.center.x, ladderCheck.bounds.center.y + (ladderCheck.bounds.extents.y + 0.05f) * direction);
-
-        //RaycastHit2D hit = Physics2D.Raycast(start, Vector2.up * direction, 0.1f, LayerMask.GetMask("Ladder"));
-
-        //if (hit.collider == null) {
-        //    Vector2 start2 = new Vector2(ladderCheck.bounds.center.x, ladderCheck.bounds.center.y + (ladderCheck.bounds.extents.y) * direction);
-        //    RaycastHit2D hit2 = Physics2D.Raycast(start2, Vector2.up * direction, 1f, LayerMask.GetMask("Ground"));
-
-        //    if (hit2.collider == null) {
-        //        StopLadding();
-        //        return;
-        //    }
-
-        //    // transform.position = new Vector2(transform.position.x, hit2.collider.bounds.center.y + hit2.collider.bounds.extents.y + bc.bounds.extents.y);
-
-        //    EndLadding(new Vector2(transform.position.x, hit2.collider.bounds.center.y + hit2.collider.bounds.extents.y + ladderCheck.bounds.extents.y));
-
-        //    return;
-        //}
+        
     }
     void GoLadding() {
         rb.velocity = new Vector2(0, inputVec.y * climbSpeed);
