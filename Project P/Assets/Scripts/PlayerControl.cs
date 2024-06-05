@@ -230,7 +230,6 @@ public class PlayerControl : MonoBehaviour
             switch (PlayerState) {
                 case State.Running:
                     if (dashEnable) {
-
                         rb.AddForce(Vector2.right * isRight * dashSpeed, ForceMode2D.Impulse);
                         isDash = true;
                         dashEnable = false;
@@ -249,6 +248,9 @@ public class PlayerControl : MonoBehaviour
                     else if(inputVec.y > 0) StartLadding();
                     break;
                 case State.Idle:
+                    if (inputVec.y < 0) DownLadding();
+                    else if (inputVec.y > 0) StartLadding();
+                    break;
                 case State.Jumping:
                 case State.Falling:
                     StartLadding();
@@ -274,7 +276,14 @@ public class PlayerControl : MonoBehaviour
     void UpdateWalling() {
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSildingSpeed);
     }
-    
+    void DownLadding() {
+        Debug.Log("hit");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * inputVec.y, 1f, LayerMask.GetMask("Ladder"));
+        if(hit) {
+            isLadder = true;
+            transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y -2*ladderCheck.bounds.extents.y);
+        }
+    }
     void StartLadding() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
         foreach (Collider2D collider in colliders) {
