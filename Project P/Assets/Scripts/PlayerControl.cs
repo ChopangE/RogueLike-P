@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.Windows;
+using static UnityEngine.UI.Image;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -67,7 +68,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         rb.gravityScale = gravity;    //임시코드
-        Debug.Log(PlayerState);
+        //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
                 break;
@@ -278,10 +279,16 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSildingSpeed);
     }
     void DownLadding() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * inputVec.y, 1f, LayerMask.GetMask("Ladder"));
-        if(hit) {
+        Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
+        RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
+        Debug.DrawRay(newPos, Vector2.up * inputVec.y, Color.red);
+        
+        if (hit) {
+            Debug.Log("hi");
             isLadder = true;
-            transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y -2*ladderCheck.bounds.extents.y);
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), groundLayer, true);
+            transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
         }
     }
     void StartLadding() {
@@ -318,14 +325,13 @@ public class PlayerControl : MonoBehaviour
             EndLadding();
             return;
         }
-
         float direction = inputVec.y;
         if(direction == 0) {
             StopLadding();
         }
         else {
             GoLadding();
-            if(direction < 0) CheckGround();
+            //if(direction < 0 && isLadder) CheckGround();
         }
 
     }
@@ -340,17 +346,31 @@ public class PlayerControl : MonoBehaviour
         anim.speed = 0f;
     }
     void EndLadding() {
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), groundLayer, false);
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
     }
-    void CheckGround() {
-        Debug.Log("check");
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
-        if (hit) {
-            EndLadding();
-            rb.velocity = Vector2.zero;
+    
+    bool CheckGround() {
+        bool isCheck = false;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+        foreach (Collider2D collider in colliders) {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                isCheck = true;
+                break;
+            }
         }
+        return isCheck;
+        //Debug.Log("check");
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
+        //if (hit) {
+        //    EndLadding();
+        //    rb.velocity = Vector2.zero;
+        //    return true;
+        //}
+        //return false;
     }
     public void dashEnd() {
         isDash = false;
