@@ -281,14 +281,10 @@ public class PlayerControl : MonoBehaviour
         Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
         RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
         RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ground"));
-
-        //Debug.DrawRay(newPos, Vector2.up * inputVec.y, Color.red);
         if (hit) {
             isLadder = true;
             hit2.collider.enabled = false;
             groundColl = hit2.collider;
-            //int groundLayer = LayerMask.NameToLayer("Ground");
-            //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), groundLayer, true);
             transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
         }
     }
