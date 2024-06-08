@@ -283,7 +283,8 @@ public class PlayerControl : MonoBehaviour
         RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ground"));
         if (hit) {
             isLadder = true;
-            hit2.collider.enabled = false;
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+            //hit2.collider.enabled = false;
             groundColl = hit2.collider;
             transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
         }
@@ -343,7 +344,9 @@ public class PlayerControl : MonoBehaviour
         anim.speed = 0f;
     }
     void EndLadding() {
-        if(groundColl) groundColl.enabled = true;
+        //if(groundColl) groundColl.enabled = true;
+        if (groundColl) groundColl = null;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
@@ -351,7 +354,7 @@ public class PlayerControl : MonoBehaviour
     
     bool CheckGround() {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
-        if (hit && hit.collider.enabled) {
+        if (hit && (hit.collider != groundColl)) {
             EndLadding();
             rb.velocity = Vector2.zero;
             return true;
