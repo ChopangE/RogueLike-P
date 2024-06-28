@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour {
     public enum State {
-        Run, Idle, Walling, Attack, Jumping
+        Running, Idle, Walling, Attacking, Jumping, Ladding, Falling
     }
     [Header("# Player Move")]
     public float jumpPower = 5f;
@@ -104,8 +104,8 @@ public class Player : MonoBehaviour {
                 rb.velocity = Vector2.zero;
                 rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 jumpCount++;
-                anim.SetBool("Jump", true);
-                anim.SetBool("isFall", false);
+                //anim.SetBool("Jump", true);
+                //anim.SetBool("isFall", false);
             }
         }
         else if (Input.GetButtonUp("Jump") && rb.velocity.y > 0 && !isLadding) {
@@ -118,35 +118,40 @@ public class Player : MonoBehaviour {
         }
 
         // Run or Idle
-        if (Mathf.Abs(rb.velocity.x) < 0.3f) {
-            anim.SetBool("Run", false);
-        }
-        else {
-            anim.SetBool("Run", true);
-        }
+        //if (Mathf.Abs(rb.velocity.x) < 0.3f) {
+        //    anim.SetBool("Run", false);
+        //}
+        //else {
+        //    anim.SetBool("Run", true);
+        //}
 
         //fall
-        if (rb.velocity.y < 0) {
-            anim.SetBool("isFall", true);
+        //if (rb.velocity.y < 0) {
+        //    anim.SetBool("isFall", true);
 
-        }
-        
+        //}
+        anim.SetFloat("Jumping", rb.velocity.y);
+        anim.SetFloat("Running", Mathf.Abs(rb.velocity.x));
         //ladder
-        if(isLadder && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))) {
+        LadderUpdate();
+    }
+    
+    void LadderUpdate() {
+        if (isLadder && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))) {
             isLadder = false;
             rb.velocity = Vector2.zero;
             isLadding = true;
             rb.gravityScale = 0f;
             jumpCount = 1;
-            transform.position = new Vector3(ladderPosX, transform.position.y,0);
+            transform.position = new Vector3(ladderPosX, transform.position.y, 0);
             //anim¼³Á¤
         }
-        
-        if(isLadding && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow))){
+
+        if (isLadding && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow))) {
             rb.velocity = Vector2.zero;
         }
     }
-    
+
     void FixedUpdate() {
         if (isAttack || isWallJump) return;
 
@@ -196,8 +201,8 @@ public class Player : MonoBehaviour {
 
         if (collision.GetContact(0).normal.y > 0.6f) {
 
-            anim.SetBool("Jump", false);
-            anim.SetBool("isFall", false);
+            //anim.SetBool("Jump", false);
+            //anim.SetBool("isFall", false);
             if (jumpCount > 0) rb.velocity = Vector2.zero;
 
             jumpCount = 0;

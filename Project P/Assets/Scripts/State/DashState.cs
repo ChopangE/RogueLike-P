@@ -2,24 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack_Preceding : StateMachineBehaviour
+public class DashState : StateMachineBehaviour
 {
-    //Player player;
-    PlayerControl player;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    PlayerControl playerControl;
+    Rigidbody2D rb;
+    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        player = animator.GetComponent<PlayerControl>();
-        player.isAttack = true;   
+        playerControl = animator.GetComponent<PlayerControl>();
+        rb = animator.GetComponent<Rigidbody2D>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        player.isAttack = true;
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        player.isAttack = false;
+        playerControl.isDash = false;
+        //if (playerControl.isDashAttack) {
+        //    animator.Play("Dash-Attack");
+        //}
+        //else {
+        //    animator.Play("Idle");
+        //}
+        rb.velocity = Vector2.zero;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
