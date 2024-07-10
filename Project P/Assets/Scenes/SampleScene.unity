@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 4940886}
   - component: {fileID: 4940885}
   - component: {fileID: 4940887}
-  - component: {fileID: 4940890}
   - component: {fileID: 4940891}
   - component: {fileID: 4940892}
   - component: {fileID: 4940893}
@@ -237,32 +236,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4940890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4940884}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e65fbb2f31da81449e9134281ca58f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpPower: 5
-  jumpCount: 0
-  maxSpeed: 5
-  wallCheck: {fileID: 413606890}
-  w_Layer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallJumpPowerUp: 5
-  wallJumpPowerSide: 7
-  wallChkDistance: 0.05
-  wallSildingSpeed: 0.8
-  ladderSpeed: 3
-  isAttack: 0
-  curAttack: 3
 --- !u!114 &4940891
 MonoBehaviour:
   m_ObjectHideFlags: 0

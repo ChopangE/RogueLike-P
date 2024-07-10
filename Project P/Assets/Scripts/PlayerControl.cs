@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 {
     [System.Serializable]
     public enum State {
-        Running, Idle, Walling, Attacking, Jumping, Ladding, Falling, Dashing
+        Running, Idle, Walling, Attacking, Jumping, Ladding, Falling, Dashing, Croush
     }
     [Header("# Player Move")]
     public float jumpPower = 5f;
@@ -50,8 +50,12 @@ public class PlayerControl : MonoBehaviour
     public bool isAttack;
     public bool attackEnable;
     float nowAttack;
-    [Header("# Attack")]
+
+    [Header("# Slide")]
     public bool isSlide;
+
+    [Header("# Cruosh")]
+    public bool isCroush;
 
 
     Rigidbody2D rb;
@@ -112,6 +116,8 @@ public class PlayerControl : MonoBehaviour
 
         isSlide = false;
 
+        isCroush = false;
+
         ladderCheck = GetComponentInChildren<BoxCollider2D>();
 
     }
@@ -132,6 +138,10 @@ public class PlayerControl : MonoBehaviour
         }
         if (isAttack || isDashAttack) {
             PlayerState = State.Attacking;
+            return;
+        }
+        if (isCroush) {
+            PlayerState = State.Croush;
             return;
         }
         if(rb.velocity.y > 0.1f) {
@@ -157,12 +167,14 @@ public class PlayerControl : MonoBehaviour
         anim.SetBool("isDash", isDash);
         anim.SetBool("isDashAttack", isDashAttack);
         anim.SetBool("isLadding", isLadder);
-
+        anim.SetBool("isCroush", isCroush);
     }
     #region Input
     public void ActionMove(InputAction.CallbackContext context) {
         inputVec.x = context.ReadValue<float>();
-        
+        if (context.started) {
+            if (PlayerState == State.Croush) { isCroush = false; }
+        }
         if (context.canceled) {
             if (PlayerState == State.Running) { rb.velocity = Vector2.zero; }
         }
@@ -192,7 +204,6 @@ public class PlayerControl : MonoBehaviour
                     isLadder = false;
                     rb.AddForce(inputVec * jumpPower, ForceMode2D.Impulse);
                     jumpCount++;
-
                     break;
             }
             
@@ -287,6 +298,9 @@ public class PlayerControl : MonoBehaviour
             //hit2.collider.enabled = false;
             groundColl = hit2.collider;
             transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
+        }
+        else {
+            isCroush = true;
         }
     }
     void StartLadding() {
