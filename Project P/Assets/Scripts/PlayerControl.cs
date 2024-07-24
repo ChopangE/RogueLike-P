@@ -201,9 +201,11 @@ public class PlayerControl : MonoBehaviour
                     jumpCount += 1;                  
                     break;
                 case State.Ladding:
-                    isLadder = false;
-                    rb.AddForce(inputVec * jumpPower, ForceMode2D.Impulse);
-                    jumpCount++;
+                    if (inputVec.y == 0) {
+                        isLadder = false;
+                        rb.AddForce(inputVec * jumpPower, ForceMode2D.Impulse);
+                        jumpCount++;
+                    }
                     break;
             }
             
