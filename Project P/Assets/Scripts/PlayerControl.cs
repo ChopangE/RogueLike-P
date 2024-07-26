@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour
     public BoxCollider2D ladderCheck;
     public float climbSpeed;
     bool isLadder;
-    Collider2D groundColl;
+    public Collider2D groundColl;
 
     [Header("# Attack")]
     public bool isAttack;
@@ -269,7 +269,8 @@ public class PlayerControl : MonoBehaviour
                 case State.Falling:
                     StartLadding();
                     break;
-                
+                case State.Ladding:
+                    break;
             }
             
         }
@@ -322,6 +323,13 @@ public class PlayerControl : MonoBehaviour
     }
     void LadderCheck() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+        foreach (Collider2D collider in colliders) {
+            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //버그수정
+                groundColl = collider;
+                break;
+            }
+        }
+
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
             if (isLadder) {
