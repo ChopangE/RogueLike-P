@@ -40,6 +40,10 @@ public class Player : MonoBehaviour {
     public float curAttack;
     float nowAttack;
 
+    [Header("# Attack Check")]
+    public Transform attackCheck;
+    public LayerMask monster_Layer;
+
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer sprite;
@@ -232,6 +236,16 @@ public class Player : MonoBehaviour {
     }
     void FreezeMove() {
         isWallJump = false;
+    }
+
+    void AttackTrigger()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackCheck.position, new Vector2(2, 2), 0, monster_Layer);
+
+        foreach (Collider2D collider in colliders)
+        {
+            collider.GetComponent<Monster>().OnDamaged();
+        }
     }
 }
 
