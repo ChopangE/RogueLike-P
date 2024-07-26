@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Switch;
+using UnityEngine.UIElements;
 using UnityEngine.Windows;
 using static UnityEngine.UI.Image;
 
@@ -51,11 +52,17 @@ public class PlayerControl : MonoBehaviour
     public bool attackEnable;
     float nowAttack;
 
+    [Header("# Attack Check")]
+    public Transform attackCheck;
+
     [Header("# Slide")]
     public bool isSlide;
 
     [Header("# Cruosh")]
     public bool isCroush;
+
+    [Header("# Damaged")]
+    public bool isDamaged; 
 
 
     Rigidbody2D rb;
@@ -71,6 +78,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         rb.gravityScale = gravity;    //임시코드
+        Debug.Log(isDamaged);
         //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
@@ -87,6 +95,7 @@ public class PlayerControl : MonoBehaviour
                 UpdateLadding();
                 break;
         }
+
         AnimationUpdate();
     }
     void LateUpdate() {
@@ -119,6 +128,8 @@ public class PlayerControl : MonoBehaviour
         isCroush = false;
 
         ladderCheck = GetComponentInChildren<BoxCollider2D>();
+
+        isDamaged = false; 
 
     }
     void StateCheck() {
@@ -412,6 +423,43 @@ public class PlayerControl : MonoBehaviour
     void FreezeMove() {
         isWallJump = false;
     }
+
+    #region Damaged
+    public void OnDamaged()
+    {
+        if (isDamaged)
+            return;
+
+        EnterDamaged(); 
+    }
+
+    void EnterDamaged()
+    {
+        isDamaged = true;
+        anim.SetBool("isDamaged", true); 
+    }
+
+    void ExitDamaged()
+    {
+        anim.SetBool("isDamaged", false); 
+        StartCoroutine(damagedCoolTime());     
+    }
+
+    #endregion
+
+    #region Hit
+    void AttackTrigger()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackCheck.position, new Vector2(2, 2), 0);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if(collider.gameObject.tag == "Monster")
+                collider.GetComponent<Monster>().OnDamaged();
+        }
+    }
+    #endregion 
+
     #region Collision
     void OnCollisionEnter2D(Collision2D collision) {
        
@@ -436,6 +484,12 @@ public class PlayerControl : MonoBehaviour
     IEnumerator dashCoolTime(float time) {
         yield return new WaitForSeconds(time);
         dashEnable = true;
+    }
+
+    IEnumerator damagedCoolTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isDamaged = false; 
     }
     #endregion
 }
