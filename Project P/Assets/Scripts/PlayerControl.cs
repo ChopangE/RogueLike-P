@@ -309,7 +309,6 @@ public class PlayerControl : MonoBehaviour
         if (hit) {
             isLadder = true;
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
-            //hit2.collider.enabled = false;
             groundColl = hit2.collider;
             transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
         }
