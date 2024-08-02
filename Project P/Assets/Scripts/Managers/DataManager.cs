@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-    public PlayerData data;
+    public PlayerData data = new PlayerData();
     public static DataManager Instance {
         get {
             if (instance == null) {
@@ -20,7 +20,6 @@ public class DataManager : MonoBehaviour
             }
             return instance;
         }
-
     }
     void Awake() {
         var objs = FindObjectsOfType<DataManager>();
@@ -35,6 +34,7 @@ public class DataManager : MonoBehaviour
         loadDataFromJson();
     }
     public void SetInit() {
+        data.curStage = 0;
         data.level = 1;
         data.health = 3;
         data.atk = 3;
@@ -43,8 +43,11 @@ public class DataManager : MonoBehaviour
         saveDataToJson();
     }
 
-    public void SetData(PlayerData data_) {
+    public void SetDataAndSave(PlayerData data_) {
         data = data_;
+        saveDataToJson();
+    }
+    public void tmpSave() {
         saveDataToJson();
     }
     void saveDataToJson() {
@@ -62,6 +65,7 @@ public class DataManager : MonoBehaviour
 
     [System.Serializable]
     public class PlayerData {
+        public int curStage;
         public int level;
         public int health;
         public int atk;
