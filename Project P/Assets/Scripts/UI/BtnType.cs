@@ -56,6 +56,8 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 DataManager.Instance.tmpSave();
                 Application.Quit();
                 break;
+            case BTNType.Status:
+                break;
         }
     }
 
