@@ -14,7 +14,6 @@ public class Monster_mushroom : Monster
     [Header("# Monster Status")]
     [SerializeField] float monster_Hp;
     [SerializeField] float monster_Attack;
-    [SerializeField] float monster_Defense;
     [SerializeField] float monster_Speed;
     [SerializeField] float monster_AttackRange;
     [SerializeField] float monster_SkillRange;
@@ -41,7 +40,6 @@ public class Monster_mushroom : Monster
 
         hp = monster_Hp;
         atk = monster_Attack;
-        def = monster_Defense;
         speed = monster_Speed;
 
         attackRangeDistance = monster_AttackRange;
@@ -55,7 +53,7 @@ public class Monster_mushroom : Monster
         hitRange = monster_attackSize;
         skillRange = monster_skillSize;
 
-        facingDir = 1;
+        dir = 1;
     }
 
     // Start is called before the first frame update

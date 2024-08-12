@@ -50,6 +50,7 @@ public class PlayerControl : MonoBehaviour
     [Header("# Attack")]
     public bool isAttack;
     public bool attackEnable;
+    public float AttackPower = 5f;
     float nowAttack;
 
     [Header("# Attack Check")]
@@ -78,7 +79,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         rb.gravityScale = gravity;    //임시코드
-        Debug.Log(isDamaged);
+
         //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
@@ -447,14 +448,14 @@ public class PlayerControl : MonoBehaviour
     #endregion
 
     #region Hit
-    void AttackTrigger()
+    void OnHit()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(attackCheck.position, new Vector2(2, 2), 0);
 
         foreach (Collider2D collider in colliders)
         {
             if(collider.gameObject.tag == "Monster")
-                collider.GetComponent<Monster>().OnDamaged();
+                collider.GetComponent<Re_Monster>().OnDamaged(this.gameObject);
         }
     }
     #endregion 

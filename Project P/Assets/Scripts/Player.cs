@@ -244,7 +244,7 @@ public class Player : MonoBehaviour {
 
         foreach (Collider2D collider in colliders)
         {
-            collider.GetComponent<Monster>().OnDamaged();
+            collider.GetComponent<Monster>().OnDamaged(this.gameObject);
         }
     }
 }
