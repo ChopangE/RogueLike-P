@@ -53,6 +53,12 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
     public void SetVolume(float volume) {
-        audioSource.volume = volume;
+        if (audioSource) {
+            audioSource.volume = volume;
+        }
+        else {
+            audioSource = GetComponent<AudioSource>();
+            audioSource.volume = volume;
+        }
     }
 }

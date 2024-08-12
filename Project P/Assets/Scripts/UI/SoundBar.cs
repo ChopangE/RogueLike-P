@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class SoundBar : MonoBehaviour
 {
+    AudioSource audioSource;
+    void Start() {
+        audioSource = FindAnyObjectByType<AudioSource>();
+    }
     public void SetVolume_(float volume) {
-        SoundManager.Instance.SetVolume(volume);
+        audioSource.volume = volume;
     }
 
 
