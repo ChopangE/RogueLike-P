@@ -66,7 +66,6 @@ public class DataManager : MonoBehaviour
         string path = Path.Combine(Application.dataPath, "playerData.json");
         string jsonData = File.ReadAllText(path);
         data = JsonUtility.FromJson<PlayerData>(jsonData);
-        Debug.Log(data.level);
     }
 
     [System.Serializable]

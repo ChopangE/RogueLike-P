@@ -1011,6 +1011,7 @@ GameObject:
   - component: {fileID: 287403845}
   - component: {fileID: 287403847}
   - component: {fileID: 287403846}
+  - component: {fileID: 287403848}
   m_Layer: 5
   m_Name: StatPoint
   m_TagString: Untagged
@@ -1135,6 +1136,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287403844}
   m_CullTransparentMesh: 1
+--- !u!114 &287403848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287403844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c625017fc81295459d8baebcda5e3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  st: 5
+  text: {fileID: 287403846}
+  targetPrint: {fileID: 0}
 --- !u!1 &302582176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +2794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   st: 1
   text: {fileID: 1428643649}
+  targetPrint: {fileID: 287403848}
 --- !u!1 &758688975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4234,6 +4251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   st: 0
   text: {fileID: 360165593}
+  targetPrint: {fileID: 287403848}
 --- !u!1 &1235017757
 GameObject:
   m_ObjectHideFlags: 0
@@ -4382,6 +4400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   st: 3
   text: {fileID: 1307951441}
+  targetPrint: {fileID: 287403848}
 --- !u!1 &1307951439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,6 +5513,7 @@ GameObject:
   - component: {fileID: 1473122280}
   - component: {fileID: 1473122282}
   - component: {fileID: 1473122281}
+  - component: {fileID: 1473122283}
   m_Layer: 5
   m_Name: LevelText
   m_TagString: Untagged
@@ -5541,7 +5561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Level : 1
+  m_text: 'Level : 0
 
 '
   m_isRightToLeft: 0
@@ -5620,6 +5640,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473122279}
   m_CullTransparentMesh: 1
+--- !u!114 &1473122283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473122279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c625017fc81295459d8baebcda5e3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  st: 4
+  text: {fileID: 1473122281}
+  targetPrint: {fileID: 0}
 --- !u!1 &1505828655
 GameObject:
   m_ObjectHideFlags: 0
@@ -6780,6 +6815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   st: 2
   text: {fileID: 1440258000}
+  targetPrint: {fileID: 287403848}
 --- !u!1 &1981104178
 GameObject:
   m_ObjectHideFlags: 0
