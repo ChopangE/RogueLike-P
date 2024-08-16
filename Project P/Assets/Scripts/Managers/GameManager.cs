@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DataManager;
 
 public class GameManager : MonoBehaviour
 {
-    DataManager dataManager;
     PlayerControl player;
     public PauseUI uiPause;
     public static GameManager instance;
+    public PlayerData pd;
     bool isLive;
     void Awake() {
         instance = this;
@@ -18,9 +19,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Init() {
-        dataManager = DataManager.Instance;
-        player = FindAnyObjectByType<PlayerControl>();
-//uiPause = FindAnyObjectByType<PauseUI>();
+        player = FindAnyObjectByType<PlayerControl>()   ;
+        pd = DataManager.Instance.GetData();
     }
 
     void Update() {
@@ -39,5 +39,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
     }
-
+    public void StageClear() {
+        DataManager.Instance.tmpSave();
+    }
 }

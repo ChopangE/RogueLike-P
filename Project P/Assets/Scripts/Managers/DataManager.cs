@@ -30,16 +30,21 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadContinue() {
+    public void LoadData() {
         loadDataFromJson();
+    }
+    public PlayerData GetData() {
+        loadDataFromJson();
+        return data;
     }
     public void SetInit() {
         data.curStage = 0;
         data.level = 1;
         data.health = 3;
-        data.atk = 3;
-        data.speed = 3;
-        data.jump = 3;
+        data.atk = 5;
+        data.speed = 5;
+        data.jump = 8;
+        data.statPoint = 5;
         saveDataToJson();
     }
 
@@ -61,6 +66,7 @@ public class DataManager : MonoBehaviour
         string path = Path.Combine(Application.dataPath, "playerData.json");
         string jsonData = File.ReadAllText(path);
         data = JsonUtility.FromJson<PlayerData>(jsonData);
+        Debug.Log(data.level);
     }
 
     [System.Serializable]
@@ -71,6 +77,6 @@ public class DataManager : MonoBehaviour
         public int atk;
         public float speed;
         public float jump;
-        
+        public int statPoint;
     }
 }

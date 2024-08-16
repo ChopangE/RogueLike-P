@@ -78,7 +78,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         rb.gravityScale = gravity;    //임시코드
-        Debug.Log(isDamaged);
+        //Debug.Log(isDamaged);
         //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:

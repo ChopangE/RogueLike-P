@@ -12,17 +12,7 @@ public enum BTNType {
     Quit,
     Status,
 }
-public class MainUI : MonoBehaviour
+public class MainUI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }
