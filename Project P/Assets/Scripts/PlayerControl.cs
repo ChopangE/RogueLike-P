@@ -347,6 +347,15 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+    void RunningAndJumpingLadderCheck() {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+        foreach (Collider2D collider in colliders) {
+            isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
+            if (isLadder) {
+                break;
+            }
+        }
+    }
     void UpdateLadding() {
         if (!isLadder) {
             EndLadding();
@@ -417,6 +426,8 @@ public class PlayerControl : MonoBehaviour
         else if (rb.velocity.x < -maxSpeed) {
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
+        if(inputVec.y > 0 && !isLadder)
+        StartLadding();
     }
 
     void FreezeMove() {
