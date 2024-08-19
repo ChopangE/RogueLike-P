@@ -15,6 +15,7 @@ public class FlyingEye_Attack : Normal_attack
 
         skillPos = new Vector2(0.1f, -0.01f);
         skillSize = new Vector2(0.83f, 0.89f);
+
         skillRange = 0.5f;
 
         clip = FindAnimationClip(skillName);

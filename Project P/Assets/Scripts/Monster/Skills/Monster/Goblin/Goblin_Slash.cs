@@ -15,6 +15,7 @@ public class Goblin_Slash : BaseSkill
 
         skillPos = new Vector2(1.43f, -0.33f);
         skillSize = new Vector2(1.34f, 0.89f);
+
         skillRange = 1.5f;
 
         clip = FindAnimationClip(skillName);

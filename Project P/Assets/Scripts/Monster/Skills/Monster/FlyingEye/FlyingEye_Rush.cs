@@ -15,6 +15,7 @@ public class FlyingEye_Rush : BaseSkill
 
         skillPos = new Vector2(0.2f, 0.003f);
         skillSize = new Vector2(1.2f, 1.17f);
+
         skillRange = 5f;
 
         clip = FindAnimationClip(skillName);

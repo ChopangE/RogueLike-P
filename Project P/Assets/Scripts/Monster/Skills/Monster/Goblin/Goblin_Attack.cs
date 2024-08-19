@@ -14,6 +14,7 @@ public class Goblin_Attack : Normal_attack
 
         skillPos = new Vector2(0.25f, -0.144f);
         skillSize = new Vector2(1.76f, 1.09f);
+
         skillRange = 1f;
 
         clip = FindAnimationClip(skillName);

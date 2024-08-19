@@ -7,6 +7,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Switch;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 using static UnityEngine.UI.Image;
@@ -392,6 +394,7 @@ public class PlayerControl : MonoBehaviour
         if (hit && (hit.collider != groundColl)) {
             EndLadding();
             rb.velocity = Vector2.zero;
+            Debug.Log("True"); 
             return true;
         }
         return false;
@@ -435,6 +438,7 @@ public class PlayerControl : MonoBehaviour
 
     void EnterDamaged()
     {
+        StartDamageEffect();
         isDamaged = true;
         anim.SetBool("isDamaged", true); 
     }
@@ -443,6 +447,48 @@ public class PlayerControl : MonoBehaviour
     {
         anim.SetBool("isDamaged", false); 
         StartCoroutine(damagedCoolTime());     
+    }
+
+    public GameObject postProcessing;
+    public Volume volume;
+    public Vignette vignette;
+
+    Coroutine coEffect; 
+
+    void StartDamageEffect()
+    {
+        if (postProcessing == null)
+            return;
+
+        CancelCoEffect();
+        StartCoroutine(DamageEffect()); 
+    }
+
+    void CancelCoEffect()
+    {
+        if(coEffect == null)
+            return;
+
+        StopCoroutine(coEffect); 
+        coEffect = null; 
+    }
+
+    IEnumerator DamageEffect()
+    {
+        volume = postProcessing.GetComponent<Volume>();
+
+        if (volume.profile.TryGet<Vignette>(out vignette))
+        {
+            vignette.intensity.value = 0.4f; 
+        }
+
+        while(vignette.intensity.value > 0)
+        {
+            vignette.intensity.value -= 0.01f;
+            yield return new WaitForSeconds(0.1f); 
+        }
+
+        yield return null; 
     }
 
     #endregion
@@ -492,6 +538,7 @@ public class PlayerControl : MonoBehaviour
         isDamaged = false; 
     }
     #endregion
+
 }
 
 

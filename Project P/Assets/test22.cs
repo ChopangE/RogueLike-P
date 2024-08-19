@@ -15,6 +15,6 @@ public class test22 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(-1f, -1f);
+
     }
 }

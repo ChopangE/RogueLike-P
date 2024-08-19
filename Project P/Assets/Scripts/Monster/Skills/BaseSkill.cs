@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BaseSkill : MonoBehaviour
 {
     #region Creature
-    Creature Owner;
+    protected Creature Owner;
     #endregion 
 
     #region AnimationInfo
@@ -123,7 +124,7 @@ public class BaseSkill : MonoBehaviour
 
     public bool IsSkillReachable(float distance)
     {
-        return distance <= skillRange;
+        return (distance <= skillRange);
     }
 
     #endregion 

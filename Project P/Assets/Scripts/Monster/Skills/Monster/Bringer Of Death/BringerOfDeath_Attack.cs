@@ -12,8 +12,9 @@ public class BringerOfDeath_Attack : Normal_attack
 
         skillCoolTime = 0f;
 
-        skillPos = new Vector2(2.7f, -0.665f);
-        skillSize = new Vector2(2.24f, 2.3f);
+        skillPos = new Vector2(-2.8f, -0.745f);
+        skillSize = new Vector2(3.77f, 2.15f);
+
         skillRange = 3f;
 
         clip = FindAnimationClip(skillName);

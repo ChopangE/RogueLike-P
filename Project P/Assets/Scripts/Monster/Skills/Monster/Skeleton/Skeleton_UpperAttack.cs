@@ -15,6 +15,7 @@ public class Skeleton_UpperAttack : BaseSkill
 
         skillPos = new Vector2(1.26f, 0.63f);
         skillSize = new Vector2(2, 2);
+
         skillRange = 2f;
 
         clip = FindAnimationClip(skillName);

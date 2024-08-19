@@ -35,16 +35,18 @@ public class Re_Monster : Creature
     protected BaseSkill selectedSkill; 
 
     protected bool damaged;
+    protected bool dead; 
 
     protected Coroutine coWait;
 
-
+    
     protected override ECreatureState CreatureState
     {
         get {  return base.CreatureState; }
         set
         {
             base.CreatureState = value;
+            Debug.Log(value);
         }
     }
 
@@ -78,7 +80,10 @@ public class Re_Monster : Creature
         skillList = new List<BaseSkill>();
         enableSkillList = new List<BaseSkill>();
 
-        selectedSkill = null; 
+        selectedSkill = null;
+
+        damaged = false;
+        dead = false; 
 
         coWait = null; 
 
@@ -88,6 +93,9 @@ public class Re_Monster : Creature
 
     private void Update()
     {
+        if (dead)
+            return; 
+
         if (monsterType == EMonsterType.Normal)
         {
             if (damaged)
@@ -159,6 +167,9 @@ public class Re_Monster : Creature
             if(target == null)
             {
                 player = target;
+                CreatureState = ECreatureState.Move;
+                selectedSkill = null; 
+
                 return; 
             }
 
@@ -289,7 +300,8 @@ public class Re_Monster : Creature
 
     protected override void UpdateDeath()
     {
-        anim.Play("Death");
+        dead = true;
+        damaged = true;
     }
     #endregion
 
@@ -334,7 +346,7 @@ public class Re_Monster : Creature
             case ECreatureState.Attack:
                 break;
             case ECreatureState.Death:
-                anim.Play("Death");
+                anim.Play("Death"); 
                 break;
         }
     }
@@ -344,7 +356,7 @@ public class Re_Monster : Creature
     #region Hit
     protected override void OnHit()
     {
-        Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(dir * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
+        Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(transform.localScale.x * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
         Vector2 size = selectedSkill.skillSize; 
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, size, 0);
@@ -365,16 +377,29 @@ public class Re_Monster : Creature
             return;
 
         PlayerControl player = go.GetComponent<PlayerControl>();
+        
         float damage = player.AttackPower; 
         
         float direction = CheckDirection(go.transform.position);
 
         Vector2 pos = new Vector2(this.transform.position.x + direction * 0.5f, this.transform.position.y);
 
-        creatureFX.CreatePopUpText(damage.ToString(), pos); 
+        creatureFX.CreatePopUpText(damage.ToString(), pos);
+
+        hp -= damage;
 
         if (monsterType == EMonsterType.Normal)
         {
+            if (direction != dir)
+                Flip();
+
+            if(hp <= 0)
+            {
+                CancelWait();
+                CreatureState = ECreatureState.Death;
+                return; 
+            }
+
             damaged = true;
 
             PlayAnimation("TakeHit"); 
@@ -473,7 +498,7 @@ public class Re_Monster : Creature
 
     #region Coroutine
 
-    protected void StartWait(float seconds)
+    public void StartWait(float seconds)
     {
         CancelWait(); 
         coWait = StartCoroutine(CoWait(seconds)); 
@@ -497,6 +522,16 @@ public class Re_Monster : Creature
             damaged = false; 
 
       }
+    void Despawn(float seconds)
+    {
+        StartCoroutine("coDespawn", seconds); 
+    }
+
+    IEnumerator coDespawn(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this.gameObject.SetActive(false); 
+    }
 
     #endregion
 
@@ -507,15 +542,16 @@ public class Re_Monster : Creature
         color = Color.red;
         color.a = 0.5f; 
         Gizmos.color = color;
-        
-        if(bc != null)
+
+        if (bc != null && selectedSkill != null)
         {
-            float xPos = bc.bounds.center.x + ((bc.bounds.extents.x + 0.1f) * (dir));
-            float yPos = bc.bounds.center.y - bc.bounds.extents.y;
+            Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(transform.localScale.x * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
 
-            Vector2 pos = new Vector2(xPos, yPos);
+            Vector2 size = selectedSkill.skillSize;
 
-            Gizmos.DrawRay(pos, Vector3.down);
+            Gizmos.color = Color.red;
+            color.a = 0.5f;
+            Gizmos.DrawCube(pos,size);
         }
 
 

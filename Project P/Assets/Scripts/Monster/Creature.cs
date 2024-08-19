@@ -14,6 +14,8 @@ public class Creature : BaseObject
         Death
     }
 
+    protected BoxCollider2D bc;
+
     [SerializeField] 
     protected ECreatureState _creatureState;
     protected virtual ECreatureState CreatureState
@@ -29,11 +31,11 @@ public class Creature : BaseObject
         }
     }
 
-    protected CreatureFX creatureFX; 
+    protected CreatureFX creatureFX;
 
-    protected float hp { set; get; }
-    protected float atk { set; get; }
-    protected float speed { set; get; }
+    protected float hp;
+    protected float atk;
+    protected float speed;
 
 
     [field: SerializeField]
@@ -65,7 +67,13 @@ public class Creature : BaseObject
 
     protected override void Init()
     {
-        base.Init(); 
+        base.Init();
+
+        bc = this.gameObject.GetComponent<BoxCollider2D>();
+        
+        if (bc == null)
+            bc = this.gameObject.AddComponent<BoxCollider2D>();
+
         creatureFX = this.gameObject.GetComponent<CreatureFX>(); 
     }
 

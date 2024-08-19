@@ -8,7 +8,6 @@ public class BaseObject : MonoBehaviour
     protected SpriteRenderer sr;
     protected Animator anim;
     protected Rigidbody2D rb;
-    protected BoxCollider2D bc;
 
     protected float dir; 
 
@@ -22,7 +21,6 @@ public class BaseObject : MonoBehaviour
         sr = this.gameObject.GetComponent<SpriteRenderer>();
         anim = this.gameObject.GetComponent<Animator>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
-        bc = this.gameObject.GetComponent<BoxCollider2D>();
 
         if (sr == null)
             sr = this.gameObject.AddComponent<SpriteRenderer>();
@@ -30,8 +28,7 @@ public class BaseObject : MonoBehaviour
             anim = this.gameObject.AddComponent<Animator>();
         if (rb == null)
             rb = this.gameObject.AddComponent<Rigidbody2D>();
-        if (bc == null)
-            bc = this.gameObject.AddComponent<BoxCollider2D>();
+
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }

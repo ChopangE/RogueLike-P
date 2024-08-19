@@ -15,6 +15,7 @@ public class Mushroom_Bite : BaseSkill
 
         skillPos = new Vector2(1.27f, -0.328f);
         skillSize = new Vector2(1.54f, 1.25f);
+
         skillRange = 1f;
 
         clip = FindAnimationClip(skillName);

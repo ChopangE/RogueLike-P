@@ -14,6 +14,7 @@ public class Mushroom_Attack : Normal_attack
 
         skillPos = new Vector2(0.86f, -0.23f);
         skillSize = new Vector2(1.3f, 1.5f);
+
         skillRange = 1f;
 
         clip = FindAnimationClip(skillName);

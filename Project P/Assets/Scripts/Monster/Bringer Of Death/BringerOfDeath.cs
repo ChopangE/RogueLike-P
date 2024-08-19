@@ -17,8 +17,17 @@ public class BringerOfDeath : Re_Monster
     [SerializeField] float monster_Hp;
     [SerializeField] float monster_Attack;
 
-    public List<HandOfDeath> spells;
-    public int summonNum; 
+    public List<HandOfDeath> hands;
+    public List<Meteo> meteos; 
+
+    public int handNum;
+    public int meteoNum;
+
+    public GameObject handPrefab;
+    public GameObject meteoPrefab;
+
+    public GameObject chargingEffect;
+    public GameObject collisionEffect; 
 
     protected override void Init()
     {
@@ -40,16 +49,18 @@ public class BringerOfDeath : Re_Monster
         hp = monster_Hp;
         atk = monster_Attack;
 
-        searchDistance = new Vector2(30, 30);
+        searchDistance = new Vector2(30, 10);
 
         dir = -1;
 
-        BaseSkill skill1 = gameObject.AddComponent<BringerOfDeath_SpellCast>();
-        BaseSkill skill2 = gameObject.AddComponent<BringerOfDeath_ThunderStrike>(); 
+        BaseSkill skill1 = gameObject.AddComponent<BringerOfDeath_PowerStrike>();
+        BaseSkill skill2 = gameObject.AddComponent<BringerOfDeath_HandOfDeath>();
+        BaseSkill skill3 = gameObject.AddComponent<BringerOfDeath_MeteoStrike>();
         BaseSkill normalAttack = gameObject.AddComponent<BringerOfDeath_Attack>();
 
         skillList.Add(skill1);
         skillList.Add(skill2);
+        skillList.Add(skill3); 
         skillList.Add(normalAttack);
 
         foreach (var _skill in skillList)
@@ -62,29 +73,59 @@ public class BringerOfDeath : Re_Monster
             if (_skill.IsSkillEnable())
                 enableSkillList.Add(_skill);
         }
-        
-        spells = new List<HandOfDeath>();
 
-        for(int i=0; i<this.transform.childCount; i++)
-        {
-            spells.Add(this.transform.GetChild(i).gameObject.GetComponent<HandOfDeath>());
-        }
+        handNum = 1;
+        meteoNum = 3;
+    }
 
-        summonNum = 1;
+
+    protected override void UpdateDeath()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.8f)
+            return; 
+
+        base.UpdateDeath();
     }
 
     public override void OnDamaged(GameObject go)
     {
         base.OnDamaged(go);
+
         creatureFX.StartCoroutine("FlashFX"); 
+
+        if(hp <= 0)
+        {
+            CreatureState = ECreatureState.Death;
+            return; 
+        }
 
     }
 
     void SummonSpell()
     {
-        for(int i=0; i<summonNum; i++)
+        for(int i=0; i<handNum; i++)
         {
-            spells[i].StartSpell(player.transform.position.x); 
+            GameObject go = Manager.Pool.Pop(handPrefab);
+            if (go == null)
+            {
+                Debug.Log("Null1");
+            }
+            go.GetComponent<HandOfDeath>().StartSpell(player.transform.position.x, this.transform.position.y + 3.86f);
         }
     }
+
+    void SummonMeteo()
+    {
+        for (int j=0; j<meteoNum; j++)
+        {
+            GameObject go = Manager.Pool.Pop(meteoPrefab);
+
+            if (go.GetComponent<Meteo>() == null)
+            {
+                Debug.Log("Null1"); 
+            }
+            go.GetComponent<Meteo>().StartMeteo(this.transform.position.x + 5 * j);
+        }
+    }
+
 }
