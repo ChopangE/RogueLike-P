@@ -8,11 +8,7 @@ public class PauseUI : MonoBehaviour
     void Awake() {
         rect = GetComponent<RectTransform>();
     }
-    void Update() {
-        //if (Input.GetKeyDown(KeyCode.Escape)) {
-        //    Hide();
-        //}
-    }
+    
     public void Show() {
         rect.localScale = Vector3.one;
         GameManager.instance.Stop();

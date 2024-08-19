@@ -46,7 +46,10 @@ public class SoundManager : MonoBehaviour
         PlayingMain();
     }
     public void EffectBgm(bool isPlay) {
-        bgmEffect.enabled= isPlay;
+        if (bgmEffect == null) {
+            bgmEffect = FindObjectOfType<AudioHighPassFilter>();
+        }
+        bgmEffect.enabled = isPlay;
     }
     void PlayingMain() {
         audioSource.clip = mainClip;

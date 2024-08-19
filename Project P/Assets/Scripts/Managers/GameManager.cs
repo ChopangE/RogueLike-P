@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public PauseUI uiPause;
     public static GameManager instance;
     public PlayerData pd;
+
     bool isLive;
+    bool isUIOn;
     void Awake() {
         instance = this;
     }
@@ -21,11 +23,17 @@ public class GameManager : MonoBehaviour
     void Init() {
         player = FindAnyObjectByType<PlayerControl>()   ;
         pd = DataManager.Instance.GetData();
+        isUIOn = false;
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isUIOn) {
             uiPause.Show();
+            isUIOn = true;
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape) && isUIOn) {
+            uiPause.Hide();
+            isUIOn = false;
         }
     }
     public void Stop() {
