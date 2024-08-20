@@ -20,6 +20,7 @@ public class ButtonCallScene : MonoBehaviour
     }
     void Init() {
         button = GetComponent<Button>();
+        DataManager.Instance.LoadData();
         button.interactable = (idx == DataManager.Instance.data.curStage);
     }
 }

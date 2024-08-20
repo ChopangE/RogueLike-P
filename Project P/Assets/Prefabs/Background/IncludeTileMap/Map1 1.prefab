@@ -28752,7 +28752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7343146956051328183
 Transform:
   m_ObjectHideFlags: 0
@@ -28786,7 +28786,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 6.958687, y: -2.499559}
@@ -29454,11 +29454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882997933986677242, guid: f6928d0329614ed4eab3158c846eba47, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.7
+      value: -30.74
       objectReference: {fileID: 0}
     - target: {fileID: 8882997933986677242, guid: f6928d0329614ed4eab3158c846eba47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.8
+      value: -9.56
       objectReference: {fileID: 0}
     - target: {fileID: 8882997933986677242, guid: f6928d0329614ed4eab3158c846eba47, type: 3}
       propertyPath: m_LocalPosition.z
