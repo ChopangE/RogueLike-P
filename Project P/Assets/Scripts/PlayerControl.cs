@@ -7,6 +7,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Switch;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 using static UnityEngine.UI.Image;
@@ -50,6 +52,7 @@ public class PlayerControl : MonoBehaviour
     [Header("# Attack")]
     public bool isAttack;
     public bool attackEnable;
+    public float AttackPower = 5f;
     float nowAttack;
 
     [Header("# Attack Check")]
@@ -77,7 +80,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = gravity;    //ÀÓ½ÃÄÚµå
+        rb.gravityScale = gravity;    //ï¿½Ó½ï¿½ï¿½Úµï¿½
         //Debug.Log(isDamaged);
         //Debug.Log(PlayerState);
         switch (PlayerState) {
@@ -334,7 +337,7 @@ public class PlayerControl : MonoBehaviour
     void LadderCheck() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
         foreach (Collider2D collider in colliders) {
-            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //¹ö±×¼öÁ¤
+            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½
                 groundColl = collider;
                 break;
             }
@@ -400,6 +403,7 @@ public class PlayerControl : MonoBehaviour
         if (hit && (hit.collider != groundColl)) {
             EndLadding();
             rb.velocity = Vector2.zero;
+            Debug.Log("True"); 
             return true;
         }
         return false;
@@ -445,6 +449,7 @@ public class PlayerControl : MonoBehaviour
 
     void EnterDamaged()
     {
+        StartDamageEffect();
         isDamaged = true;
         anim.SetBool("isDamaged", true); 
     }
@@ -455,17 +460,59 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(damagedCoolTime());     
     }
 
+    public GameObject postProcessing;
+    public Volume volume;
+    public Vignette vignette;
+
+    Coroutine coEffect; 
+
+    void StartDamageEffect()
+    {
+        if (postProcessing == null)
+            return;
+
+        CancelCoEffect();
+        StartCoroutine(DamageEffect()); 
+    }
+
+    void CancelCoEffect()
+    {
+        if(coEffect == null)
+            return;
+
+        StopCoroutine(coEffect); 
+        coEffect = null; 
+    }
+
+    IEnumerator DamageEffect()
+    {
+        volume = postProcessing.GetComponent<Volume>();
+
+        if (volume.profile.TryGet<Vignette>(out vignette))
+        {
+            vignette.intensity.value = 0.4f; 
+        }
+
+        while(vignette.intensity.value > 0)
+        {
+            vignette.intensity.value -= 0.01f;
+            yield return new WaitForSeconds(0.1f); 
+        }
+
+        yield return null; 
+    }
+
     #endregion
 
     #region Hit
-    void AttackTrigger()
+    void OnHit()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(attackCheck.position, new Vector2(2, 2), 0);
 
         foreach (Collider2D collider in colliders)
         {
             if(collider.gameObject.tag == "Monster")
-                collider.GetComponent<Monster>().OnDamaged();
+                collider.GetComponent<Re_Monster>().OnDamaged(this.gameObject);
         }
     }
     #endregion 
@@ -502,6 +549,7 @@ public class PlayerControl : MonoBehaviour
         isDamaged = false; 
     }
     #endregion
+
 }
 
 
