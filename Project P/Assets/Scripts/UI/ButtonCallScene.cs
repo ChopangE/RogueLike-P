@@ -8,11 +8,11 @@ public class ButtonCallScene : MonoBehaviour
 {
     SceneManager_ scene_;
     Button button;
-    public int idx;
+    int idx = 1;
     void Start()
     {
         scene_ = FindObjectOfType<SceneManager_>();
-        Init();
+        //Init();
     }
 
     public void CallScene() {
@@ -20,7 +20,12 @@ public class ButtonCallScene : MonoBehaviour
     }
     void Init() {
         button = GetComponent<Button>();
-        DataManager.Instance.LoadData();
-        button.interactable = (idx == DataManager.Instance.data.curStage);
+        if(idx == DataManager.Instance.data.curStage) {
+            button.interactable = true;
+        }
+        else {
+            button.interactable = false;
+
+        }
     }
 }
