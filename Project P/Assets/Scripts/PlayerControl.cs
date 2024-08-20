@@ -34,6 +34,8 @@ public class PlayerControl : MonoBehaviour
     public float dashSpeed;
     public State PlayerState { get; set; }
 
+    
+    
     [Header("# Wall Check")]
     public Transform wallCheck;
     public LayerMask w_Layer;
@@ -49,7 +51,8 @@ public class PlayerControl : MonoBehaviour
     public float climbSpeed;
     bool isLadder;
     public Collider2D groundColl;
-
+    public Transform GroundCheck;
+    
     [Header("# Attack")]
     public bool isAttack;
     public bool attackEnable;
@@ -313,11 +316,28 @@ public class PlayerControl : MonoBehaviour
     void DownLadding() {
         Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
         RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
-        RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ground"));
+        //RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 1f, 1<<LayerMask.NameToLayer("Ground"));
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(1,1),0);
+        //foreach (Collider2D c in colliders) {
+        //    if (c.gameObject.tag == "Ground") {
+        //        groundColl = c;
+        //        Debug.Log("찾음!!");
+        //        //groundColl.enabled = false;
+        //    }
+        //}
+
         if (hit) {
             isLadder = true;
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
-            groundColl = hit2.collider;
+            //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+            //groundColl = hit2.collider.GetComponent<TileMap2D>();
+            //          if (groundColl == null) Debug.Log("잇음");
+            foreach (Collider2D c in colliders) {
+                if (c.gameObject.tag == "Ground") {
+                    //groundColl = c;
+                    Debug.Log("찾음!!");
+                    //groundColl.enabled = false;
+                }
+            }
             transform.position += Vector3.down * 0.1f ;
         }
         else {
@@ -396,8 +416,11 @@ public class PlayerControl : MonoBehaviour
         anim.speed = 0f;
     }
     void EndLadding() {
-        //if(groundColl) groundColl.enabled = true;
-        if (groundColl) groundColl = null;
+        if (groundColl) {
+            groundColl.enabled = true;
+            groundColl = null;
+        }
+        //if (groundColl) groundColl = null;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
         isLadder = false;
         gravity = 1;
