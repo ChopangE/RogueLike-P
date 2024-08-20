@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public PauseUI uiPause;
     public static GameManager instance;
     public PlayerData pd;
-
+    public GameObject[] maps;
+    Transform starting;
     bool isLive;
     bool isUIOn;
     void Awake() {
@@ -21,10 +22,21 @@ public class GameManager : MonoBehaviour
     }
 
     void Init() {
-        player = FindAnyObjectByType<PlayerControl>()   ;
+        player = FindAnyObjectByType<PlayerControl>();
         pd = DataManager.Instance.GetData();
         isUIOn = false;
+        MapsOn();
     }
+
+    void MapsOn() {
+        for(int i = 0; i < maps.Length; i++) {
+            if (i == pd.curStage) maps[i].gameObject.SetActive(true);
+            else maps[i].gameObject.SetActive(false);
+        }
+        starting = GameObject.FindWithTag("StartingPoint").transform;
+        player.transform.position = starting.position;
+    }
+
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape) && !isUIOn) {
