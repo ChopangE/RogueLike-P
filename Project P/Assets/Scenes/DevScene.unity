@@ -1178,6 +1178,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1471138106}
+  currentMap: {fileID: 0}
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
+  halfHeight: 0
+  halfWidth: 0
 --- !u!1 &679618340
 GameObject:
   m_ObjectHideFlags: 0
@@ -5930,11 +5937,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360753761125298089, guid: 58f04abad1784c24b9eb7f24221bb73b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.37
+      value: -30.56
       objectReference: {fileID: 0}
     - target: {fileID: 8360753761125298089, guid: 58f04abad1784c24b9eb7f24221bb73b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.13
+      value: -5.16
       objectReference: {fileID: 0}
     - target: {fileID: 8360753761125298089, guid: 58f04abad1784c24b9eb7f24221bb73b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -26,6 +26,7 @@ public class PlayerControl : MonoBehaviour
     int isRight;
     int jumpCount;
     int gravity;
+    bool isRun;
     [Header("# Dash")]
     public bool isDash;
     public bool dashEnable;
@@ -119,6 +120,8 @@ public class PlayerControl : MonoBehaviour
         wallCheck = transform.GetChild(0);
         w_Layer = LayerMask.GetMask("Wall");
 
+        isRun = false;
+
         dashEnable = true;
         isDash = false;
         isDashAttack = false;
@@ -177,6 +180,7 @@ public class PlayerControl : MonoBehaviour
     void AnimationUpdate() {
         anim.SetFloat("Jumping", rb.velocity.y);
         anim.SetFloat("Running", Mathf.Abs(rb.velocity.x));
+        anim.SetBool("Run", isRun);
         anim.SetBool("isWall", isWall);
         anim.SetBool("isDash", isDash);
         anim.SetBool("isDashAttack", isDashAttack);
@@ -187,9 +191,11 @@ public class PlayerControl : MonoBehaviour
     public void ActionMove(InputAction.CallbackContext context) {
         inputVec.x = context.ReadValue<float>();
         if (context.started) {
+            isRun = true;
             if (PlayerState == State.Croush) { isCroush = false; }
         }
         if (context.canceled) {
+            isRun = false;
             if (PlayerState == State.Running) { rb.velocity = Vector2.zero; }
         }
     }
