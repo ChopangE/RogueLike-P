@@ -168,8 +168,8 @@ public class Re_Monster : Creature
             {
                 player = target;
 
-                Debug.Log("Here!"); 
                 CreatureState = ECreatureState.Move;
+                PlayAnimation("Idle");
                 selectedSkill = null; 
 
                 return; 
@@ -463,7 +463,7 @@ public class Re_Monster : Creature
         float yPos = bc.bounds.center.y - bc.bounds.extents.y;
 
         Vector2 pos = new Vector2(xPos, yPos);
-        RaycastHit2D rayHit = Physics2D.Raycast(pos, Vector2.down, groundCheckDistance);
+        RaycastHit2D rayHit = Physics2D.Raycast(pos, Vector2.down, groundCheckDistance, groundLayer | wallLayer);
 
         if (!rayHit || !(rayHit.collider.tag == "Ground" || rayHit.collider.tag == "Wall"))
         {
@@ -487,7 +487,7 @@ public class Re_Monster : Creature
     {
         Vector2 pos = bc.bounds.center + new Vector3((bc.bounds.extents.x * dir), 0, 0);
 
-        RaycastHit2D rayHit = Physics2D.Raycast(pos, (dir) * Vector2.right, wallCheckDistance);
+        RaycastHit2D rayHit = Physics2D.Raycast(pos, (dir) * Vector2.right, wallCheckDistance, groundLayer | wallLayer);
 
         if (rayHit)
         {
