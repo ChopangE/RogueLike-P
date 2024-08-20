@@ -318,7 +318,7 @@ public class PlayerControl : MonoBehaviour
             isLadder = true;
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
             groundColl = hit2.collider;
-            transform.position = new Vector2(hit.collider.transform.position.x, transform.position.y - ladderCheck.bounds.extents.y);
+            transform.position += Vector3.down * 0.1f ;
         }
         else {
             isCroush = true;
@@ -329,10 +329,11 @@ public class PlayerControl : MonoBehaviour
         foreach (Collider2D collider in colliders) {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")) {
                 isLadder = true;
-                BoxCollider2D colBc = collider.gameObject.GetComponent<BoxCollider2D>();
-                float x_pos = colBc.bounds.center.x;
-                float y_pos = Mathf.Clamp(transform.position.y, colBc.bounds.center.y - colBc.bounds.extents.y + 0.1f, colBc.bounds.center.y + colBc.bounds.extents.y - 0.1f);
-                transform.position = new Vector2(x_pos, y_pos);
+                Collider2D colBc = collider.gameObject.GetComponent<Collider2D>();
+                // float x_pos = colBc.bounds.center.x;
+                // float y_pos = Mathf.Clamp(transform.position.y, colBc.bounds.center.y - colBc.bounds.extents.y + 0.1f, colBc.bounds.center.y + colBc.bounds.extents.y - 0.1f);
+
+                transform.position += (Vector3.up * 0.1f); 
                 rb.velocity = Vector2.zero;
                 break;
 
