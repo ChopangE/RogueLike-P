@@ -33,7 +33,6 @@ public class TempCamera : MonoBehaviour
         if (currentMap == null)
         {
             this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, this.transform.position.z);
-            Debug.Log("Null");
         }
 
         else
