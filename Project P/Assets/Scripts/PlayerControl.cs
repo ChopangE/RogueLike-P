@@ -80,8 +80,8 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = gravity;    //ÀÓ½ÃÄÚµå
-
+        rb.gravityScale = gravity;    //ï¿½Ó½ï¿½ï¿½Úµï¿½
+        //Debug.Log(isDamaged);
         //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
@@ -337,12 +337,21 @@ public class PlayerControl : MonoBehaviour
     void LadderCheck() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
         foreach (Collider2D collider in colliders) {
-            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //¹ö±×¼öÁ¤
+            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½
                 groundColl = collider;
                 break;
             }
         }
 
+        foreach (Collider2D collider in colliders) {
+            isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
+            if (isLadder) {
+                break;
+            }
+        }
+    }
+    void RunningAndJumpingLadderCheck() {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
             if (isLadder) {
@@ -421,6 +430,8 @@ public class PlayerControl : MonoBehaviour
         else if (rb.velocity.x < -maxSpeed) {
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
+        if(inputVec.y > 0 && !isLadder)
+        StartLadding();
     }
 
     void FreezeMove() {
