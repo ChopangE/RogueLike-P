@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneManager_ : MonoBehaviour
 {
+
+    public bool isFirst { get; set; }
     private static SceneManager_ instance;
     public static SceneManager_ Instance {
         get {
@@ -28,9 +30,11 @@ public class SceneManager_ : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    // Start is called before the first frame update
-    
+    void Start() {
+        isFirst = false;
+    }
     public void CallScene(int idx) {
+        isFirst = true;
         SceneManager.LoadScene(idx);
     }
 }

@@ -83,7 +83,6 @@ public class PlayerControl : MonoBehaviour
     {
         rb.gravityScale = gravity;    //�ӽ��ڵ�
         //Debug.Log(isDamaged);
-        //Debug.Log(PlayerState);
         switch (PlayerState) {
             case State.Idle:
                 break;
@@ -555,7 +554,6 @@ public class PlayerControl : MonoBehaviour
         isDamaged = false; 
     }
     #endregion
-
 }
 
 

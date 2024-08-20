@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Ladder
   - Monster
+  - StartingPoint
   layers:
   - Default
   - TransparentFX

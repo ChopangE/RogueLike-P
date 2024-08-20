@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
 
     }
     public void StageClear() {
-        DataManager.Instance.tmpSave();
+        PlayerLevelUp();
+        DataManager.Instance.SetDataAndSave(pd);
+        SceneManager_.Instance.CallScene(1);
+    }
+    void PlayerLevelUp() {
+        pd.level++;
+        pd.statPoint++;
     }
 }
