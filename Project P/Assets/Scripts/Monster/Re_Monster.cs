@@ -46,7 +46,6 @@ public class Re_Monster : Creature
         set
         {
             base.CreatureState = value;
-            Debug.Log(value);
         }
     }
 
@@ -66,7 +65,7 @@ public class Re_Monster : Creature
 
         player = null; 
 
-        groundCheckDistance = 1f;
+        groundCheckDistance = 0.1f;
         wallCheckDistance = 0.1f;
 
         isGround = false;
@@ -135,6 +134,7 @@ public class Re_Monster : Creature
         {
             player = target;
             CreatureState = ECreatureState.Move;
+            PlayAnimation("Move"); 
             return;
         }
         
@@ -167,6 +167,8 @@ public class Re_Monster : Creature
             if(target == null)
             {
                 player = target;
+
+                Debug.Log("Here!"); 
                 CreatureState = ECreatureState.Move;
                 selectedSkill = null; 
 
@@ -202,7 +204,6 @@ public class Re_Monster : Creature
                 rb.velocity = new Vector2(speed * dir, rb.velocity.y); 
             }
         }
-
 
         if (player == null)
         {
@@ -255,7 +256,16 @@ public class Re_Monster : Creature
             
             if (!selectedSkill.IsSkillReachable(distance))
             {
-                CreatureState = ECreatureState.Move;
+                if (isWall || !isGround)
+                {
+                    _creatureState = ECreatureState.Move; 
+                }
+
+                else
+                {
+                    CreatureState = ECreatureState.Move; 
+                }
+
                 return; 
             }
         }
@@ -453,23 +463,22 @@ public class Re_Monster : Creature
         float yPos = bc.bounds.center.y - bc.bounds.extents.y;
 
         Vector2 pos = new Vector2(xPos, yPos);
-        RaycastHit2D rayHit = Physics2D.Raycast(pos, Vector2.down, groundCheckDistance, groundLayer);
+        RaycastHit2D rayHit = Physics2D.Raycast(pos, Vector2.down, groundCheckDistance);
 
-        if (!rayHit || rayHit.collider.tag != "Ground")
+        if (!rayHit || !(rayHit.collider.tag == "Ground" || rayHit.collider.tag == "Wall"))
         {
             isGround = false;
 
             if (_creatureState == ECreatureState.Attack)
                 rb.velocity = new Vector2(0, rb.velocity.y);
 
+            
             if (player == null)
             {
-                RaycastHit2D hit = Physics2D.Raycast(new Vector2(bc.bounds.center.x, yPos), Vector2.down, groundCheckDistance, groundLayer);
-
-                if (hit == true)
-                    Flip();
+                Flip();
             }
         }
+
         else
             isGround = true;
     }
@@ -478,11 +487,11 @@ public class Re_Monster : Creature
     {
         Vector2 pos = bc.bounds.center + new Vector3((bc.bounds.extents.x * dir), 0, 0);
 
-        RaycastHit2D rayHit = Physics2D.Raycast(pos, (dir) * Vector2.right, wallCheckDistance, wallLayer);
+        RaycastHit2D rayHit = Physics2D.Raycast(pos, (dir) * Vector2.right, wallCheckDistance);
 
         if (rayHit)
         {
-            if (rayHit.collider.tag == "Wall")
+            if (rayHit.collider.tag == "Wall" || rayHit.collider.tag == "Ground")
             {
                 isWall = true;
 
@@ -543,6 +552,15 @@ public class Re_Monster : Creature
         color.a = 0.5f; 
         Gizmos.color = color;
 
+        if(bc != null)
+        {
+            float xPos = bc.bounds.center.x + ((bc.bounds.extents.x + 0.1f) * (dir));
+            float yPos = bc.bounds.center.y - bc.bounds.extents.y;
+
+            Gizmos.DrawRay(new Vector2(xPos, yPos), Vector3.down * 0.1f);
+        }
+ 
+        /*
         if (bc != null && selectedSkill != null)
         {
             Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(transform.localScale.x * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
@@ -553,7 +571,7 @@ public class Re_Monster : Creature
             color.a = 0.5f;
             Gizmos.DrawCube(pos,size);
         }
-
+        */
 
     }
     #endregion 
