@@ -55,5 +55,6 @@ public class GameManager : MonoBehaviour
     void PlayerLevelUp() {
         pd.level++;
         pd.statPoint++;
+        pd.curStage++;
     }
 }
