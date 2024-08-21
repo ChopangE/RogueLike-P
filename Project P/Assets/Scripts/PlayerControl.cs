@@ -315,9 +315,10 @@ public class PlayerControl : MonoBehaviour
     }
     void DownLadding() {
         Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
-        RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
+        //RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
         RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 1f, 1<<LayerMask.NameToLayer("Ground"));
-        //Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(1,1),0);
+        RaycastHit2D hit = Physics2D.BoxCast(GroundCheck.transform.position, new Vector2(0.5f, 0.5f), 0, new Vector2(0, -1f), 0.5f,LayerMask.GetMask("Ladder"));
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(1,1),0);
         //foreach (Collider2D c in colliders) {
         //    if (c.gameObject.tag == "Ground") {
         //        groundColl = c;
@@ -329,14 +330,15 @@ public class PlayerControl : MonoBehaviour
         if (hit) {
             isLadder = true;
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
-            groundColl = hit2.collider.GetComponent<Collider2D>();
+            //groundColl = hit2.collider.GetComponent<Collider2D>();
+
             //          if (groundColl == null) Debug.Log("잇음");
             //foreach (Collider2D c in colliders) {
             //    if (c.gameObject.tag == "Ground") {
             //        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
             //        groundColl = c;
             //        Debug.Log("찾음!!");
-            //        //groundColl.enabled = false;
+            //        groundColl.enabled = false;
             //    }
             //}
             transform.position += Vector3.down * 0.1f ;
