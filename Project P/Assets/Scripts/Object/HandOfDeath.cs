@@ -25,7 +25,7 @@ public class HandOfDeath : BaseObject
         bc = this.gameObject.GetComponent<BoxCollider2D>();
         bc.isTrigger = true;
 
-        lc = GameObject.Find("Main Camera").transform.GetChild(0).GetComponent<LightController>(); 
+        lc = GameObject.FindGameObjectWithTag("Player").transform.GetChild(4).GetComponent<LightController>();
 
         rb.gravityScale = 0f; 
         anim.Play("Idle");

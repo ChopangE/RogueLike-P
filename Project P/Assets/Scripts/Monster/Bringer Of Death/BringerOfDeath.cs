@@ -76,6 +76,8 @@ public class BringerOfDeath : Re_Monster
 
         handNum = 1;
         meteoNum = 3;
+
+        // selectedSkill = normalAttack; 
     }
 
 
@@ -106,10 +108,10 @@ public class BringerOfDeath : Re_Monster
         for(int i=0; i<handNum; i++)
         {
             GameObject go = Manager.Pool.Pop(handPrefab);
+
             if (go == null)
-            {
-                Debug.Log("Null1");
-            }
+                return; 
+
             go.GetComponent<HandOfDeath>().StartSpell(player.transform.position.x, this.transform.position.y + 3.86f);
         }
     }
@@ -121,10 +123,9 @@ public class BringerOfDeath : Re_Monster
             GameObject go = Manager.Pool.Pop(meteoPrefab);
 
             if (go.GetComponent<Meteo>() == null)
-            {
-                Debug.Log("Null1"); 
-            }
-            go.GetComponent<Meteo>().StartMeteo(this.transform.position.x + 5 * j);
+                return; 
+
+            go.GetComponent<Meteo>().StartMeteo(this.transform.position.x + 5 * j, this.transform.position.y + 7f); ;
         }
     }
 

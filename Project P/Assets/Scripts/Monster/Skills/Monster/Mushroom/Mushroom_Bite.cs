@@ -13,8 +13,8 @@ public class Mushroom_Bite : BaseSkill
 
         skillCoolTime = 3f;
 
-        skillPos = new Vector2(1.27f, -0.328f);
-        skillSize = new Vector2(1.54f, 1.25f);
+        skillPos = new Vector2(0.9f, -0.328f);
+        skillSize = new Vector2(1f, 1.25f);
 
         skillRange = 1f;
 

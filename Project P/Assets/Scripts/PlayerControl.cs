@@ -353,10 +353,10 @@ public class PlayerControl : MonoBehaviour
             if (collider.gameObject.layer == LayerMask.NameToLayer("Ladder")) {
                 isLadder = true;
                 Collider2D colBc = collider.gameObject.GetComponent<Collider2D>();
-                // float x_pos = colBc.bounds.center.x;
-                // float y_pos = Mathf.Clamp(transform.position.y, colBc.bounds.center.y - colBc.bounds.extents.y + 0.1f, colBc.bounds.center.y + colBc.bounds.extents.y - 0.1f);
+                float x_pos = colBc.bounds.center.x;
+                float y_pos = Mathf.Clamp(transform.position.y, colBc.bounds.center.y - colBc.bounds.extents.y + 0.1f, colBc.bounds.center.y + colBc.bounds.extents.y - 0.1f);
 
-                transform.position += (Vector3.up * 0.1f); 
+                transform.position = new Vector2(x_pos, y_pos); 
                 rb.velocity = Vector2.zero;
                 break;
 
