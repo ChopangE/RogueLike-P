@@ -421,7 +421,7 @@ public class PlayerControl : MonoBehaviour
             groundColl = null;
         }
         //if (groundColl) groundColl = null;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+        // Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
