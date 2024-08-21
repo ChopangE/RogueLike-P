@@ -1309,6 +1309,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 683809099, guid: 2346febf19077ba4db4b3c4eea7efa72, type: 3}
+      propertyPath: m_GeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 683809099, guid: 2346febf19077ba4db4b3c4eea7efa72, type: 3}
       propertyPath: m_ColliderPaths.Array.size
       value: 1
       objectReference: {fileID: 0}
