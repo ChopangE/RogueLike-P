@@ -52,7 +52,10 @@ public class PlayerControl : MonoBehaviour
     bool isLadder;
     public Collider2D groundColl;
     public Transform GroundCheck;
-    
+    public PlatformEffector2D effector;
+    public LayerMask playerMask;
+    public LayerMask LadderMask;
+
     [Header("# Attack")]
     public bool isAttack;
     public bool attackEnable;
@@ -316,9 +319,8 @@ public class PlayerControl : MonoBehaviour
     void DownLadding() {
         Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
         //RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
-        RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 1f, 1<<LayerMask.NameToLayer("Ground"));
-        RaycastHit2D hit = Physics2D.BoxCast(GroundCheck.transform.position, new Vector2(0.5f, 0.5f), 0, new Vector2(0, -1f), 0.5f,LayerMask.GetMask("Ladder"));
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(1,1),0);
+        RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.NameToLayer("Ground"));
+        RaycastHit2D hit = Physics2D.BoxCast(GroundCheck.transform.position, new Vector2(0.3f, 0.5f), 0, new Vector2(0, -1f), 0.5f,LayerMask.GetMask("Ladder"));
         //foreach (Collider2D c in colliders) {
         //    if (c.gameObject.tag == "Ground") {
         //        groundColl = c;
@@ -326,22 +328,13 @@ public class PlayerControl : MonoBehaviour
         //        //groundColl.enabled = false;
         //    }
         //}
-
         if (hit) {
             isLadder = true;
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+            //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+            effector.colliderMask &= ~playerMask;
             //groundColl = hit2.collider.GetComponent<Collider2D>();
-
-            //          if (groundColl == null) Debug.Log("잇음");
-            //foreach (Collider2D c in colliders) {
-            //    if (c.gameObject.tag == "Ground") {
-            //        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
-            //        groundColl = c;
-            //        Debug.Log("찾음!!");
-            //        groundColl.enabled = false;
-            //    }
-            //}
-            transform.position += Vector3.down * 0.1f ;
+            transform.position += Vector3.down * 0.5f;
+            StartLadding();
         }
         else {
             isCroush = true;
@@ -374,7 +367,9 @@ public class PlayerControl : MonoBehaviour
 
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
+            //isLadder = true;
             if (isLadder) {
+                Debug.Log("isLadder : ");
                 break;
             }
         }
@@ -400,7 +395,7 @@ public class PlayerControl : MonoBehaviour
         }
         float direction = inputVec.y;
         if (direction < 0 && CheckGround()) return;
-        if(direction == 0) {
+        if(direction == 0) {    
             StopLadding();
         }
         else {
@@ -424,18 +419,36 @@ public class PlayerControl : MonoBehaviour
             groundColl = null;
         }
         //if (groundColl) groundColl = null;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+        effector.colliderMask |= playerMask;
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
     }
-    
+
     bool CheckGround() {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
-        if (hit && (hit.collider != groundColl)) {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(0.3f, 0.2f), 0);
+        bool isLadderOn = false;
+        bool isGroundOn = false;
+        //if (hit && (hit.collider != groundColl)) {
+        //    EndLadding();
+        //    rb.velocity = Vector2.zero;
+        //    return true;
+        //}
+        //return false;
+        foreach (var coll in colliders) {
+            if(coll.gameObject.tag == "Ground" ) {
+                isGroundOn = true;
+               
+            }
+            else if(coll.gameObject.tag == "Ladder") {
+                isLadderOn = true;
+            }
+        }
+        if (!isLadderOn && isGroundOn) {
             EndLadding();
             rb.velocity = Vector2.zero;
-            Debug.Log("True"); 
             return true;
         }
         return false;
@@ -581,6 +594,11 @@ public class PlayerControl : MonoBehaviour
         isDamaged = false; 
     }
     #endregion
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(GroundCheck.transform.position, new Vector2(0.3f, 0.2f));
+    }
 }
+
 
 
