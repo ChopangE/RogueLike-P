@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -22,7 +23,9 @@ public class Re_Monster : Creature
     protected float groundCheckDistance { set; get; }
     protected float wallCheckDistance { set; get; }
 
+    [SerializeField]
     protected bool isGround;
+    [SerializeField]
     protected bool isWall;
 
     protected LayerMask groundLayer;
@@ -134,7 +137,6 @@ public class Re_Monster : Creature
         {
             player = target;
             CreatureState = ECreatureState.Move;
-            PlayAnimation("Move"); 
             return;
         }
         
@@ -167,9 +169,8 @@ public class Re_Monster : Creature
             if(target == null)
             {
                 player = target;
-
                 CreatureState = ECreatureState.Move;
-                PlayAnimation("Idle");
+                PlayAnimation("Move");
                 selectedSkill = null; 
 
                 return; 
@@ -196,7 +197,9 @@ public class Re_Monster : Creature
                 if (isWall || !isGround)
                 {
                     PlayAnimation("Idle");
+
                     rb.velocity = new Vector2(0, rb.velocity.y); 
+
                     return; 
                 }
 
@@ -213,6 +216,7 @@ public class Re_Monster : Creature
             {
                 player = target;
                 CreatureState = ECreatureState.Move;
+                PlayAnimation("Move"); 
                 return; 
             }
 
@@ -366,7 +370,15 @@ public class Re_Monster : Creature
     #region Hit
     protected override void OnHit()
     {
-        Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(transform.localScale.x * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
+        float direction;
+
+        if (Mathf.Sign(transform.localScale.x) >= 0)
+            direction = 1;
+
+        else
+            direction = -1;
+
+        Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(direction * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
         Vector2 size = selectedSkill.skillSize; 
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, size, 0);
@@ -465,8 +477,10 @@ public class Re_Monster : Creature
         Vector2 pos = new Vector2(xPos, yPos);
         RaycastHit2D rayHit = Physics2D.Raycast(pos, Vector2.down, groundCheckDistance, groundLayer | wallLayer);
 
+
         if (!rayHit || !(rayHit.collider.tag == "Ground" || rayHit.collider.tag == "Wall"))
         {
+            
             isGround = false;
 
             if (_creatureState == ECreatureState.Attack)
@@ -493,6 +507,7 @@ public class Re_Monster : Creature
         {
             if (rayHit.collider.tag == "Wall" || rayHit.collider.tag == "Ground")
             {
+                Debug.Log("Wall!");
                 isWall = true;
 
                 if (player == null)
@@ -547,32 +562,38 @@ public class Re_Monster : Creature
     #region DrawGizmos
     private void OnDrawGizmos()
     {
-        Color color;
-        color = Color.red;
-        color.a = 0.5f; 
+        UnityEngine.Color color;
+        color = UnityEngine.Color.red;
         Gizmos.color = color;
 
-        if(bc != null)
-        {
-            float xPos = bc.bounds.center.x + ((bc.bounds.extents.x + 0.1f) * (dir));
-            float yPos = bc.bounds.center.y - bc.bounds.extents.y;
-
-            Gizmos.DrawRay(new Vector2(xPos, yPos), Vector3.down * 0.1f);
-        }
- 
-        /*
         if (bc != null && selectedSkill != null)
         {
-            Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(transform.localScale.x * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
+            float direction;
+
+            if (Mathf.Sign(transform.localScale.x) >= 0)
+                direction = 1;
+
+            else
+                direction = -1; 
+
+            Vector2 pos = new Vector2(bc.bounds.center.x, bc.bounds.center.y) + new Vector2(direction * selectedSkill.skillPos.x, selectedSkill.skillPos.y);
 
             Vector2 size = selectedSkill.skillSize;
 
-            Gizmos.color = Color.red;
+            Gizmos.color = UnityEngine.Color.red;
             color.a = 0.5f;
             Gizmos.DrawCube(pos,size);
         }
-        */
 
+        /*
+        if (bc != null)
+        {
+            Vector2 pos = bc.bounds.center + new Vector3((bc.bounds.extents.x * dir), 0, 0);
+
+            color.a = 0.5f;
+            Gizmos.DrawRay(pos, dir * Vector2.right);
+        }
+        */ 
     }
     #endregion 
 }

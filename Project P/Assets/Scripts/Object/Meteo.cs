@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Meteo : BaseObject
@@ -12,6 +13,8 @@ public class Meteo : BaseObject
 
     [SerializeField]
     GameObject collisionEffect;
+
+    float timer; 
     
     private void Awake()
     {
@@ -20,12 +23,25 @@ public class Meteo : BaseObject
 
     private void OnEnable()
     {
-        speed = Random.Range(1, 4f); 
+        speed = Random.Range(1, 4f);
+        timer = 0; 
+
     }
 
     private void Update()
     {
         rb.velocity = new Vector2(-1f, -1f) * speed;
+
+        timer += Time.deltaTime;
+
+        if (timer >= 5f)
+        {
+            GameObject _go = Manager.Pool.Pop(collisionEffect);
+            _go.transform.position = cc.bounds.center;
+
+            Manager.Pool.Push(this.gameObject);
+        }
+
     }
 
     protected override void Init()
@@ -37,13 +53,16 @@ public class Meteo : BaseObject
 
         speed = Random.Range(1, 4f); 
         rb.gravityScale = 0f;
+
+        timer = 0f; 
     }
 
-    public void StartMeteo(float xPos)
+    public void StartMeteo(float xPos, float yPos)
     {
         this.gameObject.SetActive(true);
-        this.transform.position = new Vector3(xPos, 5f, transform.position.z); 
+        this.transform.position = new Vector3(xPos, yPos, transform.position.z); 
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

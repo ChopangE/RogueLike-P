@@ -16,8 +16,8 @@ public class BringerOfDeath_PowerStrike : BaseSkill
 
         skillCoolTime = 5f;
 
-        skillPos = new Vector2(-3.6f, -0.4f);
-        skillSize = new Vector2(4.6f, 3.19f);
+        skillPos = new Vector2(-4.3f, -0.4f);
+        skillSize = new Vector2(4.18f, 4.65f);
 
         skillRange = 5f;
 
