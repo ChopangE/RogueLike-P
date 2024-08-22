@@ -75,6 +75,11 @@ public class PlayerControl : MonoBehaviour
 
     [Header("# Health")]
     public int health;
+    public int curHealth;
+
+    [Header("# Health")]
+    public int level;
+
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer sprite;
@@ -152,6 +157,8 @@ public class PlayerControl : MonoBehaviour
         maxSpeed = GameManager.instance.pd.speed;
         AttackPower = GameManager.instance.pd.atk;
         health = GameManager.instance.pd.health;
+        curHealth = GameManager.instance.pd.curhealth;
+        level = GameManager.instance.pd.level;
     }
     void StateCheck() {
         isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);
@@ -387,15 +394,15 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
-    void RunningAndJumpingLadderCheck() {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
-        foreach (Collider2D collider in colliders) {
-            isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
-            if (isLadder) {
-                break;
-            }
-        }
-    }
+    //void RunningAndJumpingLadderCheck() {
+    //    Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
+    //    foreach (Collider2D collider in colliders) {
+    //        isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
+    //        if (isLadder) {
+    //            break;
+    //        }
+    //    }
+    //}
     void UpdateLadding() {
         if (!isLadder) {
             EndLadding();

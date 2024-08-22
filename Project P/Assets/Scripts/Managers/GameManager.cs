@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;
     public GameObject[] maps;
     public RectTransform gameOver;
+    public InGameUI inGameUI;
     Transform starting;
     bool isLive;
     bool isUIOn;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         pd = DataManager.Instance.GetData();
         isUIOn = false;
         MapsOn();
+        SetStatus();
     }
 
     void MapsOn() {
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetStatus() {
         player.SetStatus();
+        inGameUI.Notifying();
     }
 
     public void GameOver() {

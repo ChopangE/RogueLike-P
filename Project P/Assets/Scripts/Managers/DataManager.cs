@@ -42,6 +42,7 @@ public class DataManager : MonoBehaviour
         data.curStage = 0;
         data.level = 1;
         data.health = 3;
+        data.curhealth = data.health;
         data.atk = 5;
         data.speed = 5;
         data.jump = 5;
@@ -74,6 +75,7 @@ public class DataManager : MonoBehaviour
         public int curStage;
         public int level;
         public int health;
+        public int curhealth;
         public int atk;
         public float speed;
         public float jump;
