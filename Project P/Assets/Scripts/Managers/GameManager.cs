@@ -10,15 +10,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public PlayerData pd;
     public GameObject[] maps;
+    public RectTransform gameOver;
+    public InGameUI inGameUI;
     Transform starting;
     bool isLive;
     bool isUIOn;
     void Awake() {
         instance = this;
+        Init();
     }
 
     void Start() {
-        Init();
+        //Init();
     }
 
     void Init() {
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
         pd = DataManager.Instance.GetData();
         isUIOn = false;
         MapsOn();
+        SetStatus();
     }
 
     void MapsOn() {
@@ -46,6 +50,10 @@ public class GameManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Escape) && isUIOn) {
             uiPause.Hide();
             isUIOn = false;
+        }
+        if (player.health <= 0) {
+            isLive = false;
+            GameOver();
         }
     }
     public void Stop() {
@@ -69,4 +77,21 @@ public class GameManager : MonoBehaviour
         pd.statPoint++;
         pd.curStage++;
     }
+    public void SetStatus() {
+        player.SetStatus();
+        inGameUI.Notifying();
+    }
+
+    public void GameOver() {
+        Stop();
+        gameOver.localScale = Vector3.one;
+    }
+
+    public void GoToHome() {
+        gameOver.localScale = Vector3.zero;
+        FindObjectOfType<DataManager>().SetInit(); 
+        FindObjectOfType<SceneManager_>().CallMainScene();
+        //초기화해야됨 여기서 
+    }
+
 }

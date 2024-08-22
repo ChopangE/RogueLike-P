@@ -67,6 +67,7 @@ public class StatusButton : MonoBehaviour
     }
 
     public void Notifying() {
+        GameManager.instance.SetStatus();
         targetPrint.notified();
     }
     public void notified() {
