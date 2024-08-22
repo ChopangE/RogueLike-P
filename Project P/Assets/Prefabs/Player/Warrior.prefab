@@ -460,6 +460,13 @@ MonoBehaviour:
   climbSpeed: 3
   groundColl: {fileID: 0}
   GroundCheck: {fileID: 916282989}
+  effector: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  LadderMask:
+    serializedVersion: 2
+    m_Bits: 0
   isAttack: 0
   attackEnable: 0
   AttackPower: 5

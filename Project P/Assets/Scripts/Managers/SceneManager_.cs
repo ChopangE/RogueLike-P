@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneManager_ : MonoBehaviour
 {
 
-    public bool isFirst { get; set; }
+    public bool isFirst = false;
     private static SceneManager_ instance;
     public static SceneManager_ Instance {
         get {
@@ -30,11 +30,14 @@ public class SceneManager_ : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    void Start() {
-        isFirst = false;
-    }
+    
     public void CallScene(int idx) {
         isFirst = true;
         SceneManager.LoadScene(idx);
+    }
+    public void CallMainScene() {
+        Debug.Log("HI");
+        isFirst = false;
+        SceneManager.LoadScene(1);
     }
 }

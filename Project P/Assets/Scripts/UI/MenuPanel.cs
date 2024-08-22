@@ -18,5 +18,11 @@ public class MenuPanel : MonoBehaviour
             mainMenu.blocksRaycasts = false;
             stageMenu.localScale = Vector3.one;
         }
+        else {
+            mainMenu.interactable = true;
+            mainMenu.alpha = 1.0f;
+            mainMenu.blocksRaycasts = true;
+            stageMenu.localScale = Vector3.zero;
+        }
     }
 }

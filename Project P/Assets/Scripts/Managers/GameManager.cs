@@ -10,15 +10,17 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public PlayerData pd;
     public GameObject[] maps;
+    public RectTransform gameOver;
     Transform starting;
     bool isLive;
     bool isUIOn;
     void Awake() {
         instance = this;
+        Init();
     }
 
     void Start() {
-        Init();
+        //Init();
     }
 
     void Init() {
@@ -47,6 +49,10 @@ public class GameManager : MonoBehaviour
             uiPause.Hide();
             isUIOn = false;
         }
+        if (player.health <= 0) {
+            isLive = false;
+            GameOver();
+        }
     }
     public void Stop() {
         isLive = false;
@@ -69,4 +75,20 @@ public class GameManager : MonoBehaviour
         pd.statPoint++;
         pd.curStage++;
     }
+    public void SetStatus() {
+        player.SetStatus();
+    }
+
+    public void GameOver() {
+        Stop();
+        gameOver.localScale = Vector3.one;
+    }
+
+    public void GoToHome() {
+        gameOver.localScale = Vector3.zero;
+        FindObjectOfType<DataManager>().SetInit(); 
+        FindObjectOfType<SceneManager_>().CallMainScene();
+        //초기화해야됨 여기서 
+    }
+
 }

@@ -27,6 +27,7 @@ public class PlayerControl : MonoBehaviour
     int jumpCount;
     int gravity;
     bool isRun;
+
     [Header("# Dash")]
     public bool isDash;
     public bool dashEnable;
@@ -34,8 +35,6 @@ public class PlayerControl : MonoBehaviour
     public float dashSpeed;
     public State PlayerState { get; set; }
 
-    
-    
     [Header("# Wall Check")]
     public Transform wallCheck;
     public LayerMask w_Layer;
@@ -72,9 +71,10 @@ public class PlayerControl : MonoBehaviour
     public bool isCroush;
 
     [Header("# Damaged")]
-    public bool isDamaged; 
+    public bool isDamaged;
 
-
+    [Header("# Health")]
+    public int health;
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer sprite;
@@ -117,6 +117,7 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        effector = FindObjectOfType<PlatformEffector2D>(false);
         gravity = 1;
 
         PlayerState = State.Idle;
@@ -140,8 +141,17 @@ public class PlayerControl : MonoBehaviour
 
         ladderCheck = GetComponentInChildren<BoxCollider2D>();
 
-        isDamaged = false; 
+        isDamaged = false;
 
+
+        SetStatus();
+
+    }
+    public void SetStatus() {
+        jumpPower = GameManager.instance.pd.jump;
+        maxSpeed = GameManager.instance.pd.speed;
+        AttackPower = GameManager.instance.pd.atk;
+        health = GameManager.instance.pd.health;
     }
     void StateCheck() {
         isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);
@@ -331,6 +341,9 @@ public class PlayerControl : MonoBehaviour
         if (hit) {
             isLadder = true;
             //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+            if(effector == null) {
+                effector = FindObjectOfType<PlatformEffector2D>();
+            }
             effector.colliderMask &= ~playerMask;
             //groundColl = hit2.collider.GetComponent<Collider2D>();
             transform.position += Vector3.down * 0.5f;
@@ -420,6 +433,9 @@ public class PlayerControl : MonoBehaviour
         }
         //if (groundColl) groundColl = null;
         //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+        if (effector == null) {
+            effector = FindObjectOfType<PlatformEffector2D>();
+        }
         effector.colliderMask |= playerMask;
         isLadder = false;
         gravity = 1;
@@ -427,16 +443,11 @@ public class PlayerControl : MonoBehaviour
     }
 
     bool CheckGround() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
         Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(0.3f, 0.2f), 0);
         bool isLadderOn = false;
         bool isGroundOn = false;
-        //if (hit && (hit.collider != groundColl)) {
-        //    EndLadding();
-        //    rb.velocity = Vector2.zero;
-        //    return true;
-        //}
-        //return false;
+        
         foreach (var coll in colliders) {
             if(coll.gameObject.tag == "Ground" ) {
                 isGroundOn = true;

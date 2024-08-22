@@ -38,13 +38,14 @@ public class DataManager : MonoBehaviour
         return data;
     }
     public void SetInit() {
+        //Debug.Log("SEt");
         data.curStage = 0;
         data.level = 1;
         data.health = 3;
         data.atk = 5;
         data.speed = 5;
-        data.jump = 8;
-        data.statPoint = 5;
+        data.jump = 5;
+        data.statPoint = 3;
         saveDataToJson();
     }
 
