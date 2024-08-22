@@ -27,7 +27,7 @@ public class PlayerControl : MonoBehaviour
     int jumpCount;
     int gravity;
     bool isRun;
-
+    bool isJump;
     [Header("# Dash")]
     public bool isDash;
     public bool dashEnable;
@@ -201,6 +201,7 @@ public class PlayerControl : MonoBehaviour
 
     void AnimationUpdate() {
         anim.SetFloat("Jumping", rb.velocity.y);
+        anim.SetBool("Jump", isJump);
         anim.SetFloat("Running", Mathf.Abs(rb.velocity.x));
         anim.SetBool("Run", isRun);
         anim.SetBool("isWall", isWall);
