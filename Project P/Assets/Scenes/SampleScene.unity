@@ -7762,6 +7762,7 @@ GameObject:
   - component: {fileID: 1836007059}
   - component: {fileID: 1836007061}
   - component: {fileID: 1836007060}
+  - component: {fileID: 1836007062}
   m_Layer: 5
   m_Name: Dash
   m_TagString: Untagged
@@ -7827,6 +7828,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836007058}
   m_CullTransparentMesh: 1
+--- !u!114 &1836007062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836007058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1499747377cf414abe760aae9fc76dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ct: 1
+  image: {fileID: 0}
 --- !u!1 &1856085582
 GameObject:
   m_ObjectHideFlags: 0
@@ -7898,6 +7913,7 @@ GameObject:
   - component: {fileID: 1903962695}
   - component: {fileID: 1903962697}
   - component: {fileID: 1903962696}
+  - component: {fileID: 1903962698}
   m_Layer: 5
   m_Name: Atk
   m_TagString: Untagged
@@ -7963,6 +7979,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903962694}
   m_CullTransparentMesh: 1
+--- !u!114 &1903962698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903962694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1499747377cf414abe760aae9fc76dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ct: 0
+  image: {fileID: 0}
 --- !u!1001 &1924786472
 PrefabInstance:
   m_ObjectHideFlags: 0

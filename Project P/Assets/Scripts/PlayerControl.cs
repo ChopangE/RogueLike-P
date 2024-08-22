@@ -28,12 +28,14 @@ public class PlayerControl : MonoBehaviour
     int gravity;
     bool isRun;
     bool isJump;
+
     [Header("# Dash")]
     public bool isDash;
     public bool dashEnable;
     public bool isDashAttack;
     public float dashSpeed;
     public State PlayerState { get; set; }
+    public float dashCurTime;
 
     [Header("# Wall Check")]
     public Transform wallCheck;
@@ -60,6 +62,7 @@ public class PlayerControl : MonoBehaviour
     public bool attackEnable;
     public float AttackPower = 5f;
     float nowAttack;
+    public float attackCurTime;
 
     [Header("# Attack Check")]
     public Transform attackCheck;
@@ -136,9 +139,11 @@ public class PlayerControl : MonoBehaviour
         dashEnable = true;
         isDash = false;
         isDashAttack = false;
+        dashCurTime = 5.0f;
 
         attackEnable = true;
         isAttack = false;
+        attackCurTime = 3.0f;
 
         isSlide = false;
 
@@ -269,7 +274,7 @@ public class PlayerControl : MonoBehaviour
                         rb.velocity = Vector2.zero;
                         anim.SetTrigger("Attack");
                         isAttack = true;
-                        StartCoroutine(attackCoolTime(3f));
+                        StartCoroutine(attackCoolTime(attackCurTime));
                     }
                     break;
                 case State.Attacking:
@@ -290,7 +295,7 @@ public class PlayerControl : MonoBehaviour
                         rb.AddForce(Vector2.right * isRight * dashSpeed, ForceMode2D.Impulse);
                         isDash = true;
                         dashEnable = false;
-                        StartCoroutine(dashCoolTime(5f));
+                        StartCoroutine(dashCoolTime(dashCurTime));
                     }
                     break;
             }
