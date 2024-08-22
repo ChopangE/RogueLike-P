@@ -520,6 +520,9 @@ public class PlayerControl : MonoBehaviour
     {
         StartDamageEffect();
         isDamaged = true;
+        curHealth -= 1;
+        //GameManager랑 연동
+        if(curHealth <= 0)//Dead();
         anim.SetBool("isDamaged", true); 
     }
 
