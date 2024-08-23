@@ -7,7 +7,7 @@ public class FadeOut : MonoBehaviour
 {
     public Image panel;
     float time = 0f;
-    float F_time = 3f;
+    float F_time = 2f;
     void Start() {
         Init();
         StartCoroutine(FadeFlow());

@@ -6,13 +6,15 @@ public class MenuPanel : MonoBehaviour
 {
     public CanvasGroup mainMenu;
     public RectTransform stageMenu;
+    SceneManager_ scene;
     void Start()
     {
         Init();
     }
 
     void Init() {
-        if (SceneManager_.Instance.isFirst) {
+        scene = FindObjectOfType<SceneManager_>();
+        if (scene.isFirst) {
             mainMenu.interactable = false;
             mainMenu.alpha = 0.0f;
             mainMenu.blocksRaycasts = false;
