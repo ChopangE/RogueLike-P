@@ -46,7 +46,8 @@ public class GameManager : MonoBehaviour
     void Update() {
         if (player.curHealth <= 0) {
             isLive = false;
-            if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f) {
+            Animator anim = player.GetComponent<Animator>();
+            if(anim.GetCurrentAnimatorStateInfo(0).IsName("Death NoEffect") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f) {
                 GameOver();
             }
         }
