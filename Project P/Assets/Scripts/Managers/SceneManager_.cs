@@ -37,6 +37,6 @@ public class SceneManager_ : MonoBehaviour
     }
     public void CallMainScene() {
         isFirst = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

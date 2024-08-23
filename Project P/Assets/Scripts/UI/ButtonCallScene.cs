@@ -16,7 +16,7 @@ public class ButtonCallScene : MonoBehaviour
     }
 
     public void CallScene() {
-        scene_.CallScene(0);
+        scene_.CallScene(1);
     }
     void Init() {
         button = GetComponent<Button>();
