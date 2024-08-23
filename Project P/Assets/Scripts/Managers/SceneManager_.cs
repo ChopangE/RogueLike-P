@@ -36,7 +36,6 @@ public class SceneManager_ : MonoBehaviour
         SceneManager.LoadScene(idx);
     }
     public void CallMainScene() {
-        Debug.Log("HI");
         isFirst = false;
         SceneManager.LoadScene(1);
     }
