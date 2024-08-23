@@ -22,7 +22,8 @@ public class TempCamera : MonoBehaviour
     void Start()
     {
         halfHeight = this.GetComponent<Camera>().orthographicSize;
-        halfWidth = halfHeight * this.GetComponent<Camera>().aspect; 
+        halfWidth = halfHeight * this.GetComponent<Camera>().aspect;
+        currentMap = GameManager.instance.maps[GameManager.instance.pd.curStage];
     }
 
     // Update is called once per frame
