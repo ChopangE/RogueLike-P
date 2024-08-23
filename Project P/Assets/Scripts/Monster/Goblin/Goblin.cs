@@ -33,6 +33,8 @@ public class Goblin : Re_Monster
         bc.size = size;
 
         hp = monster_Hp;
+        currentHp = hp;
+
         atk = monster_Attack;
 
         searchDistance = new Vector2(5, 2);

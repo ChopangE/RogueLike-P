@@ -33,7 +33,10 @@ public class Creature : BaseObject
 
     protected CreatureFX creatureFX;
 
-    protected float hp;
+    protected float hp; // maxHp; 
+    [SerializeField]
+    protected float currentHp;
+
     protected float atk;
     protected float speed;
 

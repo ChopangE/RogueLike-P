@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BringerOfDeath : Re_Monster
 {
@@ -17,6 +18,8 @@ public class BringerOfDeath : Re_Monster
     [SerializeField] float monster_Hp;
     [SerializeField] float monster_Attack;
 
+    [SerializeField] public Image healthBarFill;
+
     public List<HandOfDeath> hands;
     public List<Meteo> meteos; 
 
@@ -27,7 +30,9 @@ public class BringerOfDeath : Re_Monster
     public GameObject meteoPrefab;
 
     public GameObject chargingEffect;
-    public GameObject collisionEffect; 
+    public GameObject collisionEffect;
+
+    public bool bossReady; 
 
     protected override void Init()
     {
@@ -46,7 +51,9 @@ public class BringerOfDeath : Re_Monster
         bc.offset = offset; // 0.1515 -0.127
         bc.size = size; // 1.84, 3.57
 
-        hp = monster_Hp;
+        hp = monster_Hp; 
+        currentHp = hp; 
+
         atk = monster_Attack;
 
         searchDistance = new Vector2(30, 10);
@@ -77,9 +84,23 @@ public class BringerOfDeath : Re_Monster
         handNum = 1;
         meteoNum = 3;
 
-        // selectedSkill = normalAttack; 
+        selectedSkill = normalAttack;
+
+        bossReady = false; 
     }
 
+    protected override void Update()
+    {
+        if (!bossReady)
+            return;
+
+        base.Update();
+    }
+
+    public void UpdateBossReady(bool value)
+    {
+        bossReady = value; 
+    }
 
     protected override void UpdateDeath()
     {
@@ -93,9 +114,12 @@ public class BringerOfDeath : Re_Monster
     {
         base.OnDamaged(go);
 
-        creatureFX.StartCoroutine("FlashFX"); 
+        creatureFX.StartCoroutine("FlashFX");
 
-        if(hp <= 0)
+        healthBarFill.fillAmount = currentHp/hp; 
+
+
+        if(currentHp <= 0)
         {
             CreatureState = ECreatureState.Death;
             return; 

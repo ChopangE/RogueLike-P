@@ -93,7 +93,7 @@ public class Re_Monster : Creature
 
     #endregion
 
-    private void Update()
+    protected virtual void Update()
     {
         if (dead)
             return; 
@@ -408,14 +408,15 @@ public class Re_Monster : Creature
 
         creatureFX.CreatePopUpText(damage.ToString(), pos);
 
-        hp -= damage;
+        currentHp -= damage;
 
         if (monsterType == EMonsterType.Normal)
         {
+
             if (direction != dir)
                 Flip();
 
-            if(hp <= 0)
+            if(currentHp <= 0)
             {
                 CancelWait();
                 CreatureState = ECreatureState.Death;
