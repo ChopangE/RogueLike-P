@@ -593,7 +593,8 @@ public class PlayerControl : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
        
         if (collision.GetContact(0).normal.y > 0.6f) {
-            if (jumpCount > 0) rb.velocity = Vector2.zero;
+            //if (jumpCount > 0) rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
             jumpCount = 0;
         }
         else {
