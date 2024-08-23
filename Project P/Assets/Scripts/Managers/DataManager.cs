@@ -38,7 +38,6 @@ public class DataManager : MonoBehaviour
         return data;
     }
     public void SetInit() {
-        //Debug.Log("SEt");
         data.curStage = 0;
         data.level = 1;
         data.health = 3;
