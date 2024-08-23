@@ -80,11 +80,14 @@ public class PlayerControl : MonoBehaviour
     public int health;
     public int curHealth;
 
-    [Header("# Health")]
+    [Header("# level")]
     public int level;
 
-    Rigidbody2D rb;
-    Animator anim;
+    [Header("#Dead")]
+    public bool isDead;
+
+    public Rigidbody2D rb;
+    public Animator anim;
     SpriteRenderer sprite;
 
     
@@ -95,7 +98,8 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = gravity;    //�ӽ��ڵ�
+        rb.gravityScale = gravity;
+        if (isDead) return;
         //Debug.Log(isDamaged);
         switch (PlayerState) {
             case State.Idle:
@@ -116,9 +120,11 @@ public class PlayerControl : MonoBehaviour
         AnimationUpdate();
     }
     void LateUpdate() {
+        if (isDead) return;
         StateCheck();
     }
     void FixedUpdate() {
+        if (isDead) return;
         PlayerMove();
     }
     void Init() {
@@ -153,7 +159,7 @@ public class PlayerControl : MonoBehaviour
 
         isDamaged = false;
 
-
+        isDead = false;
         SetStatus();
 
     }
@@ -166,6 +172,7 @@ public class PlayerControl : MonoBehaviour
         level = GameManager.instance.pd.level;
     }
     void StateCheck() {
+        if (isDead) return;
         isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);
         if (isWall) {
             PlayerState = State.Walling;
@@ -217,6 +224,7 @@ public class PlayerControl : MonoBehaviour
     }
     #region Input
     public void ActionMove(InputAction.CallbackContext context) {
+        if (isDead) return;
         inputVec.x = context.ReadValue<float>();
         if (context.started) {
             isRun = true;
@@ -228,6 +236,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
     public void ActionJump(InputAction.CallbackContext context) {
+        if (isDead) return;
         if (context.started) {
             switch (PlayerState) {
                 case State.Running:
@@ -265,6 +274,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
     public void ActionAttack(InputAction.CallbackContext context) {
+        if (isDead) return;
         if (context.started) {
             switch (PlayerState) {
                 case State.Idle:
@@ -288,6 +298,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
     public void ActionDash(InputAction.CallbackContext context) {
+        if (isDead) return;
         if (context.started) {
             switch (PlayerState) {
                 case State.Running:
@@ -302,6 +313,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
     public void ActionUpDown(InputAction.CallbackContext context) {
+        if (isDead) return;
         inputVec.y = context.ReadValue<float>();
         if (context.started) {
             switch (PlayerState) {
@@ -521,8 +533,13 @@ public class PlayerControl : MonoBehaviour
         StartDamageEffect();
         isDamaged = true;
         curHealth -= 1;
-        //GameManager랑 연동
-        if(curHealth <= 0)//Dead();
+        GameManager.instance.pd.curhealth = curHealth;
+        GameManager.instance.SetStatus();
+        if(curHealth <= 0) {
+            isDead = true;
+            anim.SetBool("isDead",isDead);
+            return;
+        }
         anim.SetBool("isDamaged", true); 
     }
 

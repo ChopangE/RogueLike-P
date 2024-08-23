@@ -43,6 +43,13 @@ public class GameManager : MonoBehaviour
 
 
     void Update() {
+        if (player.curHealth <= 0) {
+            isLive = false;
+            if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f) {
+                GameOver();
+            }
+        }
+        if (!isLive) return;
         if (Input.GetKeyDown(KeyCode.Escape) && !isUIOn) {
             uiPause.Show();
             isUIOn = true;
@@ -51,10 +58,7 @@ public class GameManager : MonoBehaviour
             uiPause.Hide();
             isUIOn = false;
         }
-        if (player.health <= 0) {
-            isLive = false;
-            GameOver();
-        }
+        
     }
     public void Stop() {
         isLive = false;
@@ -83,6 +87,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
+        
         Stop();
         gameOver.localScale = Vector3.one;
     }
