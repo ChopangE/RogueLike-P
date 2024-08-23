@@ -10,6 +10,7 @@ public class Map7 : MonoBehaviour
 
     private void OnEnable()
     {
+        Init(); 
         _light.SpotLight(); 
     }
 
