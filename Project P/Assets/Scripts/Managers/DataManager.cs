@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
         data.atk = 5;
         data.speed = 5;
         data.jump = 5;
-        data.statPoint = 3;
+        data.statPoint = 5;
         saveDataToJson();
     }
 

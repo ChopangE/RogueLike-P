@@ -12,7 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] maps;
     public RectTransform gameOver;
     public InGameUI inGameUI;
+
+
     Transform starting;
+    public RectTransform bossCanvas;
+
     bool isLive;
     bool isUIOn;
     void Awake() {
@@ -55,10 +59,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isUIOn) {
             uiPause.Show();
             isUIOn = true;
+            if (bossCanvas.gameObject.activeSelf) {
+                bossCanvas.localScale = Vector3.zero;
+            }
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && isUIOn) {
             uiPause.Hide();
             isUIOn = false;
+            if (bossCanvas.gameObject.activeSelf) {
+                bossCanvas.localScale = new Vector3(0.5f,0.5f,0.5f);
+            }
         }
         
     }

@@ -564,6 +564,7 @@ MonoBehaviour:
   - {fileID: 683919849}
   gameOver: {fileID: 343470867}
   inGameUI: {fileID: 1675695778}
+  bossCanvas: {fileID: 683919850}
 --- !u!1 &103752591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1226,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2987718512411571912, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4743704082733587301, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1272,6 +1277,14 @@ PrefabInstance:
     - target: {fileID: 5497377028227345388, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
       propertyPath: m_Name
       value: Map2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497377028227345388, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759120459592842437, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
@@ -3252,13 +3265,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4668623598586542929, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
+      propertyPath: m_TagString
+      value: BossCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 8140013799555719791, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1842287547}
+    - target: {fileID: 8140013799877555647, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: m_Name
       value: Map8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8140013800072366394, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: m_RootOrder
@@ -3321,6 +3346,11 @@ PrefabInstance:
 --- !u!1 &683919849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
+  m_PrefabInstance: {fileID: 683919848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &683919850 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1112486570820643460, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
   m_PrefabInstance: {fileID: 683919848}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &721498134

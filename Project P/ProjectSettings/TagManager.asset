@@ -9,6 +9,7 @@ TagManager:
   - Ladder
   - Monster
   - StartingPoint
+  - BossCanvas
   layers:
   - Default
   - TransparentFX
