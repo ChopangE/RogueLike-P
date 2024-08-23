@@ -18,7 +18,6 @@ public class StatusButton : MonoBehaviour
 
     void Init() {
         switch (st) {
-            //각자 남아있는 스킬포인트 확인하고 Up
             case statType.health:
                 text.text = (GameManager.instance.pd.health) + "";
                 break;
@@ -46,6 +45,7 @@ public class StatusButton : MonoBehaviour
             case statType.health:
                 GameManager.instance.pd.statPoint--;
                 text.text= (++GameManager.instance.pd.health) + "";
+                GameManager.instance.pd.curhealth = GameManager.instance.pd.health;
                 Notifying();
                 break;
             case statType.atk:

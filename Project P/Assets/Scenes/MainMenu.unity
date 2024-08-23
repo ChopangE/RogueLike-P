@@ -625,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1211b366cb697f14fa74059854dc3148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFirst: 0
 --- !u!4 &191876623
 Transform:
   m_ObjectHideFlags: 0
@@ -4109,6 +4110,7 @@ MonoBehaviour:
     curStage: 0
     level: 0
     health: 0
+    curhealth: 0
     atk: 0
     speed: 0
     jump: 0
