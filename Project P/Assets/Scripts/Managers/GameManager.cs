@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         player = FindAnyObjectByType<PlayerControl>();
         pd = DataManager.Instance.GetData();
         isUIOn = false;
+        Resume();
         MapsOn();
         SetStatus();
     }
@@ -66,10 +67,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void Resume() {
-
         isLive = true;
         Time.timeScale = 1;
-
     }
     public void StageClear() {
         PlayerLevelUp();

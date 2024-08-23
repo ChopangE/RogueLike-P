@@ -3122,6 +3122,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34976196, y: 0.7686661}
   m_EdgeRadius: 0
+--- !u!1 &4290087290459295711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895345750233669951}
+  m_Layer: 0
+  m_Name: StartingPoint
+  m_TagString: StartingPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &895345750233669951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4290087290459295711}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.74, y: -0.53, z: 0.3333332}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6407217847243763101}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5830102165492568512
 GameObject:
   m_ObjectHideFlags: 0
@@ -8240,6 +8271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureState: 0
+  currentHp: 0
   skillList: []
   enableSkillList: []
   player: {fileID: 0}
@@ -8298,6 +8330,7 @@ Transform:
   - {fileID: 6407217845535791745}
   - {fileID: 3262448659450772768}
   - {fileID: 3577065006251641820}
+  - {fileID: 895345750233669951}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
