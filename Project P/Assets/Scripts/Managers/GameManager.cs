@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         
     }
     public void Stop() {
-        isLive = false;
+        //isLive = false;
         Time.timeScale = 0;
     }
 
