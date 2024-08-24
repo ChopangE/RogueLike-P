@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -750047184722822154, guid: 1914d95466e3d4341a618c35a56d5f82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureState: 0
+  currentHp: 0
   skillList: []
   enableSkillList: []
   player: {fileID: 0}
@@ -113,6 +114,7 @@ MonoBehaviour:
   size: {x: 1.84, y: 3.57}
   monster_Hp: 30
   monster_Attack: 0
+  healthBarFill: {fileID: 0}
   hands: []
   meteos: []
   handNum: 0
@@ -121,6 +123,7 @@ MonoBehaviour:
   meteoPrefab: {fileID: 7989882157407080199, guid: 3f51b3762ba6f424ebaaa22b84c78be7, type: 3}
   chargingEffect: {fileID: 5460084898634792291, guid: 932c0199e7dd9ab46bfaade1df653cf3, type: 3}
   collisionEffect: {fileID: 4396887861768938399, guid: 46f27c707ec0196448be1146c24cda85, type: 3}
+  bossReady: 0
 --- !u!114 &6547311359834693205
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using static Creature;
 
 public class BaseObject : MonoBehaviour
 {
-    protected SpriteRenderer sr;
     protected Animator anim;
     protected Rigidbody2D rb;
 
@@ -18,12 +17,9 @@ public class BaseObject : MonoBehaviour
 
     protected virtual void Init()
     {
-        sr = this.gameObject.GetComponent<SpriteRenderer>();
         anim = this.gameObject.GetComponent<Animator>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
 
-        if (sr == null)
-            sr = this.gameObject.AddComponent<SpriteRenderer>();
         if (anim == null)
             anim = this.gameObject.AddComponent<Animator>();
         if (rb == null)
