@@ -369,6 +369,7 @@ public class PlayerControl : MonoBehaviour
             if(effector == null) {
                 effector = FindObjectOfType<PlatformEffector2D>();
             }
+            Debug.Log("Here"); 
             effector.colliderMask &= ~playerMask;
             //groundColl = hit2.collider.GetComponent<Collider2D>();
             transform.position += Vector3.down * 0.5f;
