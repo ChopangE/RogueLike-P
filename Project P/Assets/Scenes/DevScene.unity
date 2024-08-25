@@ -250,7 +250,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6407217847019577435, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6407217847243763100, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_Name
@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6407217847243763100, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6407217847243763101, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_RootOrder
@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7697307308536777061, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
@@ -476,7 +476,79 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 2134862837}
+    m_ColliderPaths:
+    - - X: -625000
+        Y: -55937500
+      - X: -2187500
+        Y: -55937500
+      - X: -4375000
+        Y: -56875000
+      - X: -5000000
+        Y: -57812500
+      - X: -5000000
+        Y: -55000000
+      - X: -15000000
+        Y: -55000000
+      - X: -15000000
+        Y: -60000000
+      - X: 60000000
+        Y: -60000000
+      - X: 60000000
+        Y: -55000000
+      - X: 55937500
+        Y: -55000000
+      - X: 55000000
+        Y: -58125000
+      - X: 55000000
+        Y: -56250000
+      - X: 54375000
+        Y: -55937500
+      - X: 52812500
+        Y: -55937500
+      - X: 50625000
+        Y: -56875000
+      - X: 50000000
+        Y: -57812500
+      - X: 50000000
+        Y: -55000000
+      - X: 40000000
+        Y: -55000000
+      - X: 40000000
+        Y: -56250000
+      - X: 39375000
+        Y: -55937500
+      - X: 37812500
+        Y: -55937500
+      - X: 35625000
+        Y: -56875000
+      - X: 35000000
+        Y: -57812500
+      - X: 35000000
+        Y: -55000000
+      - X: 20937500
+        Y: -55000000
+      - X: 20000000
+        Y: -58125000
+      - X: 20000000
+        Y: -56250000
+      - X: 19375000
+        Y: -55937500
+      - X: 17812500
+        Y: -55937500
+      - X: 15625000
+        Y: -56875000
+      - X: 15000000
+        Y: -57812500
+      - X: 15000000
+        Y: -55000000
+      - X: 937500
+        Y: -55000000
+      - X: 0
+        Y: -58125000
+      - X: 0
+        Y: -56250000
   m_CompositePaths:
     m_Paths:
     - - {x: 5.999971, y: -6}
@@ -801,7 +873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3814943953647531375, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3814943953703988836, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
       propertyPath: m_UsedByEffector
@@ -809,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3814943953703988836, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3814943953703988838, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
       propertyPath: m_SurfaceArc

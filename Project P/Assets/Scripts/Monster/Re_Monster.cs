@@ -507,7 +507,6 @@ public class Re_Monster : Creature
         {
             if (rayHit.collider.tag == "Wall" || rayHit.collider.tag == "Ground")
             {
-                Debug.Log("Wall!");
                 isWall = true;
 
                 if (player == null)

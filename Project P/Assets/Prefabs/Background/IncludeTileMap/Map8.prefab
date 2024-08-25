@@ -2580,7 +2580,7 @@ MonoBehaviour:
   monsterName: 
   offset: {x: 0.1515, y: -0.127}
   size: {x: 1.84, y: 3.57}
-  monster_Hp: 30
+  monster_Hp: 60
   monster_Attack: 0
   healthBarFill: {fileID: 3360268578828481186}
   hands: []
