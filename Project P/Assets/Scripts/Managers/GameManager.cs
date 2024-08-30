@@ -14,9 +14,7 @@ public class GameManager : MonoBehaviour
     public RectTransform bossCanvas;
     public InGameUI inGameUI;
 
-
     Transform starting;
-    public RectTransform bossCanvas;
 
     bool isLive;
     bool isUIOn;
