@@ -407,7 +407,6 @@ public class PlayerControl : MonoBehaviour
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
             //isLadder = true;
             if (isLadder) {
-                Debug.Log("isLadder : ");
                 break;
             }
         }

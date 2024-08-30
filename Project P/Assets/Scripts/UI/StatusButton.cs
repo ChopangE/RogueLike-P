@@ -60,8 +60,9 @@ public class StatusButton : MonoBehaviour
                 break;
             case statType.jump:
                 GameManager.instance.pd.statPoint--;
-                Notifying();
                 text.text = (++GameManager.instance.pd.jump) + "";
+                Notifying();
+
                 break;
             } 
     }

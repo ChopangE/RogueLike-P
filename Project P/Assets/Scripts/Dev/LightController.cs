@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -16,7 +17,8 @@ public class LightController : MonoBehaviour
     private void Init()
     {
         light2d = this.GetComponent<Light2D>();
-        light2d.lightType = Light2D.LightType.Global; 
+        
+        // light2d.lightType = Light2D.LightType.Global; 
     }
 
     private void Update()
@@ -26,6 +28,9 @@ public class LightController : MonoBehaviour
 
     public void SpotLight()
     {
+        if (light2d == null)
+            Debug.Log("TT");
+
         light2d.lightType = Light2D.LightType.Point;
         
         light2d.pointLightInnerRadius = 2f;

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;
     public GameObject[] maps;
     public RectTransform gameOver;
+    public RectTransform bossCanvas;
     public InGameUI inGameUI;
 
 

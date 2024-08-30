@@ -8,15 +8,19 @@ public class Map7 : MonoBehaviour
     GameObject player;
     LightController _light; 
 
-    private void OnEnable()
+    private void Start()
     {
-        Init(); 
-        _light.SpotLight(); 
+        _light.SpotLight();
+    }
+
+    private void Awake()
+    {
+        Init();
     }
 
     void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        _light = player.transform.GetChild(4).GetComponent<LightController>(); 
+        _light = player.transform.GetChild(4).GetComponent<LightController>();
     }
 }

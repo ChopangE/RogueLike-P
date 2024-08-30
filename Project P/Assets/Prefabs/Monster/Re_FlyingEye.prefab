@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureState: 0
+  currentHp: 0
   skillList: []
   enableSkillList: []
   player: {fileID: 0}
@@ -109,7 +110,7 @@ MonoBehaviour:
   monsterName: 
   offset: {x: 0.1, y: -0.09}
   size: {x: 0.83, y: 0.89}
-  monster_Hp: 0
+  monster_Hp: 15
   monster_Attack: 0
 --- !u!114 &3488755914007508005
 MonoBehaviour:

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     private static Manager instance = null;
-
+    public GameObject obj; 
     PoolManager poolManager = new PoolManager(); 
 
     public static PoolManager Pool
@@ -25,6 +25,7 @@ public class Manager : MonoBehaviour
         {
             Destroy(this.gameObject); 
         }
+
     }
 
     public static Manager Instance
