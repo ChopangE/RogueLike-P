@@ -24,16 +24,16 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         switch (currentType) {
             case BTNType.New:
-                DataManager.Instance.SetInit();
+                Managers.DataManager.SetInit();
                 panelOn(stagePanel);
                 CanvasGroupOff(mainGroup);
                 break;
             case BTNType.Continue:
-                if (DataManager.Instance.data.level == 0) {
+                if (Managers.DataManager.data.level == 0) {
                     Debug.Log("NO Data!");
                 }
                 else {
-                    DataManager.Instance.LoadData();
+                    Managers.DataManager.LoadData();
                     panelOn(stagePanel);
                     CanvasGroupOff(mainGroup);
                 }
@@ -52,7 +52,7 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 CanvasGroupOff(optGroup);
                 break;
             case BTNType.Quit:
-                DataManager.Instance.tmpSave();
+                Managers.DataManager.tmpSave();
                 Application.Quit();
                 break;
             case BTNType.Status:

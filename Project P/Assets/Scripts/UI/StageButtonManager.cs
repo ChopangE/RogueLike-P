@@ -8,7 +8,7 @@ public class StageButtonManager : MonoBehaviour
     public Button[] buttons;
     DataManager dataManager;
     void Start() {
-        dataManager = FindObjectOfType<DataManager>();
+        dataManager = Managers.DataManager;
         for(int i = 0; i < buttons.Length; i++) { 
             if(i == dataManager.data.curStage) {
                 buttons[i].interactable = true;

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Init() {
         player = FindAnyObjectByType<PlayerControl>();
-        pd = DataManager.Instance.GetData();
+        pd = Managers.DataManager.GetData();
         isUIOn = false;
         Resume();
         MapsOn();
@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
     }
     public void StageClear() {
         PlayerLevelUp();
-        DataManager.Instance.SetDataAndSave(pd);
-        SceneManager_.Instance.CallScene(0);
+        Managers.DataManager.SetDataAndSave(pd);
+        Managers.SceneManager_.CallScene(0);
     }
     void PlayerLevelUp() {
         pd.level++;
@@ -103,8 +103,8 @@ public class GameManager : MonoBehaviour
 
     public void GoToHome() {
         gameOver.localScale = Vector3.zero;
-        FindObjectOfType<DataManager>().SetInit(); 
-        FindObjectOfType<SceneManager_>().CallMainScene();
+        Managers.DataManager.SetInit();
+        Managers.SceneManager_.CallMainScene();
         //초기화해야됨 여기서 
     }
 
