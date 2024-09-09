@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         Resume();
         MapsOn();
         SetStatus();
+        
     }
 
     void MapsOn() {
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetStatus() {
         player.SetStatus();
-        inGameUI.Notifying();
+        //inGameUI.Notifying();
     }
 
     public void GameOver() {
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
         gameOver.localScale = Vector3.zero;
         Managers.DataManager.SetInit();
         Managers.SceneManager_.CallMainScene();
-        //ÃÊ±âÈ­ÇØ¾ßµÊ ¿©±â¼­ 
+        //ï¿½Ê±ï¿½È­ï¿½Ø¾ßµï¿½ ï¿½ï¿½ï¿½â¼­ 
     }
 
 }

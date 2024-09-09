@@ -15,6 +15,8 @@ using static UnityEngine.UI.Image;
 
 public class PlayerControl : MonoBehaviour
 {
+    ViewModel viewModel;
+
     [System.Serializable]
     public enum State {
         Running, Idle, Walling, Attacking, Jumping, Ladding, Falling, Dashing, Croush
@@ -77,12 +79,18 @@ public class PlayerControl : MonoBehaviour
     public bool isDamaged;
 
     [Header("# Health")]
-    public int health;
-    public int curHealth;
+    private int health;
+
+    int _curhealth;
+    public int curHealth {
+        set{}
+        get { return _curhealth; }
+    }
 
     [Header("# level")]
     public int level;
 
+    
     [Header("#Dead")]
     public bool isDead;
 
@@ -162,6 +170,7 @@ public class PlayerControl : MonoBehaviour
         isDead = false;
         SetStatus();
 
+        viewModel = FindObjectOfType<InGameUI>().viewModel;
     }
     public void SetStatus() {
         jumpPower = GameManager.instance.pd.jump;
@@ -531,7 +540,7 @@ public class PlayerControl : MonoBehaviour
     {
         StartDamageEffect();
         isDamaged = true;
-        curHealth -= 1;
+        viewModel.curHealth -= 1;
         GameManager.instance.pd.curhealth = curHealth;
         GameManager.instance.SetStatus();
         if(curHealth <= 0) {

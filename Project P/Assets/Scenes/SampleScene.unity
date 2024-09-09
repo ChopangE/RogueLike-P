@@ -495,7 +495,6 @@ MonoBehaviour:
   gameOver: {fileID: 343470867}
   bossCanvas: {fileID: 683919850}
   inGameUI: {fileID: 1675695778}
-  bossCanvas: {fileID: 683919850}
 --- !u!1 &103752591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,18 +1111,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2880264881300937610, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2880264881300937610, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2987718512411571912, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4743704082733587301, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1171,18 +1158,6 @@ PrefabInstance:
     - target: {fileID: 5497377028227345388, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
       propertyPath: m_Name
       value: Map2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5497377028227345388, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6759120459592842437, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698524868146936035, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
-      propertyPath: m_UseOneWayGrouping
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fe41481dc33b394aa21b061dc4df45a, type: 3}
@@ -2464,18 +2439,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map1
       objectReference: {fileID: 0}
-    - target: {fileID: 3814943953647531375, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3814943953703988836, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3814943953703988838, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
-      propertyPath: m_UseOneWayGrouping
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b26d7d83203ba4cb6b066955fb9b43, type: 3}
 --- !u!1 &634657555 stripped
@@ -2567,25 +2530,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4668623598586542929, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_TagString
-      value: BossCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8140013799555719791, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1842287547}
-    - target: {fileID: 8140013799877555647, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: m_Name
       value: Map8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8140013800072366394, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: m_RootOrder
@@ -2630,22 +2577,6 @@ PrefabInstance:
     - target: {fileID: 8140013800072366394, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8140013800096724307, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: monster_Hp
-      value: 58.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 8543414727330172922, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8543414727330172922, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 8543414727330172922, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 1080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
@@ -5954,77 +5885,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570533445}
   m_CullTransparentMesh: 1
---- !u!1 &1603813123
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1603813124}
-  - component: {fileID: 1603813126}
-  - component: {fileID: 1603813125}
-  m_Layer: 0
-  m_Name: GoalIn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1603813124
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603813123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.69, y: -1.54, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1717244317}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1603813125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603813123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ff0d2e5cba9864f8babed0a1058a44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &1603813126
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603813123}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.056429, y: 0.2257153}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3550987, y: 0.5485694}
-  m_EdgeRadius: 0
 --- !u!1 &1675695774
 GameObject:
   m_ObjectHideFlags: 0
@@ -6432,17 +6292,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6407217847019577435, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6407217847243763100, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_Name
       value: Map7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6407217847243763100, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6407217847243763101, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
       propertyPath: m_RootOrder
@@ -6488,20 +6340,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7697307308536777061, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
 --- !u!1 &1717244316 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6407217847243763100, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
-  m_PrefabInstance: {fileID: 1717244315}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1717244317 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6407217847243763101, guid: deaa2bfc5a12abc48a3aff1aa19ac672, type: 3}
   m_PrefabInstance: {fileID: 1717244315}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1754153832
@@ -6779,11 +6622,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ct: 1
   image: {fileID: 0}
---- !u!1 &1842287547 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9131565798452285206, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
-  m_PrefabInstance: {fileID: 683919848}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1856085582
 GameObject:
   m_ObjectHideFlags: 0
