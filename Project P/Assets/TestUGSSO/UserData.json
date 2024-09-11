@@ -1,0 +1,24 @@
+{
+    "Units": [
+        {
+            "Id": "Ber",
+            "Health": 100,
+            "Damage": 20
+        },
+        {
+            "Id": "Bus",
+            "Health": 80,
+            "Damage": 13
+        },
+        {
+            "Id": "King",
+            "Health": 75,
+            "Damage": 10
+        },
+        {
+            "Id": "Serie",
+            "Health": 1000,
+            "Damage": 500
+        }
+    ]
+}

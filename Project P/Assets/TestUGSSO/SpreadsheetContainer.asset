@@ -16,9 +16,22 @@ MonoBehaviour:
   documentId: 1L26aAcR2bWCSww-SwOLDbo-CIUVcVaoX1tjYSMVE3lg
   selectedTogglesIds:
   - units
+  - Units
   foldoutSerializationGUI: 1
-  serializationOutputPath: ../../Configs
-  serializationFileName: Configs.v0.1
+  serializationOutputPath: ../Assets/TestUGSSO
+  serializationFileName: UserData
   serializationFormat: 0
   content:
-    units: []
+    Units:
+    - Id: Ber
+      Health: 100
+      Damage: 20
+    - Id: Bus
+      Health: 80
+      Damage: 13
+    - Id: King
+      Health: 75
+      Damage: 10
+    - Id: Serie
+      Health: 200
+      Damage: 50

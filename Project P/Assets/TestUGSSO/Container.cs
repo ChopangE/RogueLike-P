@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NorskaLib.Spreadsheets;
+
+
+
 namespace Game.DataBase {
 
     [System.Serializable]
     public class UnitData {
-        string Id;
-        int Health;
-        int Damage;
+        public string Id;
+        
+        public int Health;
+        public int Damage;
     }
 
     [System.Serializable]
     public class SpreadsheetContent {
         [SpreadsheetPage("Units")]
-        public List<UnitData> units;
+        public List<UnitData> Units;
     }
 
     [CreateAssetMenu(fileName = "SpreadsheetContainer", menuName = "spreadSheet")]

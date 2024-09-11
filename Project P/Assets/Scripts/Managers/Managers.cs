@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.DataBase;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,13 +14,14 @@ public class Managers : MonoBehaviour
     SoundManager soundManager = new SoundManager();
     GameManager gameManager = new GameManager();
     SceneManager_ sceneManger = new SceneManager_();
+    StatManager statManager = new StatManager();
     public static DataManager DataManager { get { return Instance.dataManager; } }
     public static SoundManager SoundManager { get { return Instance.soundManager; } }
     public static GameManager GameManager { get { return Instance.gameManager; } }
     public static SceneManager_ SceneManager_ { get { return Instance.sceneManger; } }
+    public static StatManager StatManager { get { return Instance.statManager; } }
 
-
-
+    
 
     void Start()
     {
