@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public enum statType { health, atk, speed, jump, level, statPoint };
 
+
 public class StatusButton : MonoBehaviour
 {
 
@@ -41,7 +42,7 @@ public class StatusButton : MonoBehaviour
     public void OnButtonClicked() {
         if (GameManager.instance.pd.statPoint <= 0) return;
             switch (st) {
-            //°¢ÀÚ ³²¾ÆÀÖ´Â ½ºÅ³Æ÷ÀÎÆ® È®ÀÎÇÏ°í Up
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Æ® È®ï¿½ï¿½ï¿½Ï°ï¿½ Up
             case statType.health:
                 GameManager.instance.pd.statPoint--;
                 text.text= (++GameManager.instance.pd.health) + "";

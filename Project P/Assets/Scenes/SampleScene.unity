@@ -495,7 +495,6 @@ MonoBehaviour:
   gameOver: {fileID: 343470867}
   bossCanvas: {fileID: 683919850}
   inGameUI: {fileID: 1675695778}
-  bossCanvas: {fileID: 683919850}
 --- !u!1 &103752591
 GameObject:
   m_ObjectHideFlags: 0
@@ -7769,7 +7768,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 861218870}
   m_HandleRect: {fileID: 0}

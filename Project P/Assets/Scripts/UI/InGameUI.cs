@@ -16,9 +16,7 @@ public class InGameUI : MonoBehaviour
         HpSlider.value = (float)GameManager.instance.pd.curhealth / GameManager.instance.pd.health;
     }
 
-    private void Update() {
-        HpSlider.value = (float)GameManager.instance.pd.curhealth / GameManager.instance.pd.health;
-    }
+    
 
 
 }
