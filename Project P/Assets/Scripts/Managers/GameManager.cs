@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Init() {
         player = FindAnyObjectByType<PlayerControl>();
-        pd = Managers.DataManager.GetData();
+        pd = DataManager.Instance.GetData();
         isUIOn = false;
         Resume();
         MapsOn();
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
     }
     public void StageClear() {
         PlayerLevelUp();
-        Managers.DataManager.SetDataAndSave(pd);
-        Managers.SceneManager_.CallScene(0);
+        DataManager.Instance.SetDataAndSave(pd);
+        SceneManager_.Instance.CallScene(0);
     }
     void PlayerLevelUp() {
         pd.level++;
@@ -104,9 +104,15 @@ public class GameManager : MonoBehaviour
 
     public void GoToHome() {
         gameOver.localScale = Vector3.zero;
+<<<<<<< HEAD
         Managers.DataManager.SetInit();
         Managers.SceneManager_.CallMainScene();
         //ï¿½Ê±ï¿½È­ï¿½Ø¾ßµï¿½ ï¿½ï¿½ï¿½â¼­ 
+=======
+        FindObjectOfType<DataManager>().SetInit(); 
+        FindObjectOfType<SceneManager_>().CallMainScene();
+        //ÃÊ±âÈ­ÇØ¾ßµÊ ¿©±â¼­ 
+>>>>>>> parent of 29006ec3 (Update)
     }
 
 }

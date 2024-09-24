@@ -13,7 +13,7 @@ public class MenuPanel : MonoBehaviour
     }
 
     void Init() {
-        scene = Managers.SceneManager_;
+        scene = FindObjectOfType<SceneManager_>();
         if (scene.isFirst) {
             mainMenu.interactable = false;
             mainMenu.alpha = 0.0f;

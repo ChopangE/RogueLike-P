@@ -15,7 +15,6 @@ using static UnityEngine.UI.Image;
 
 public class PlayerControl : MonoBehaviour
 {
-    ViewModel viewModel;
 
     [System.Serializable]
     public enum State {
@@ -170,7 +169,6 @@ public class PlayerControl : MonoBehaviour
         isDead = false;
         SetStatus();
 
-        viewModel = FindObjectOfType<InGameUI>().viewModel;
     }
     public void SetStatus() {
         jumpPower = GameManager.instance.pd.jump;
@@ -540,9 +538,8 @@ public class PlayerControl : MonoBehaviour
     {
         StartDamageEffect();
         isDamaged = true;
-        viewModel.curHealth -= 1;
+        curHealth -= 1;
         GameManager.instance.pd.curhealth = curHealth;
-        GameManager.instance.SetStatus();
         if(curHealth <= 0) {
             isDead = true;
             anim.SetBool("isDead",isDead);

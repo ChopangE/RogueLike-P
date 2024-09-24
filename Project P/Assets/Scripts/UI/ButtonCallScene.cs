@@ -11,7 +11,7 @@ public class ButtonCallScene : MonoBehaviour
     int idx = 1;
     void Start()
     {
-        scene_ = Managers.SceneManager_;
+        scene_ = FindObjectOfType<SceneManager_>();
         //Init();
     }
 
@@ -20,7 +20,7 @@ public class ButtonCallScene : MonoBehaviour
     }
     void Init() {
         button = GetComponent<Button>();
-        if(idx == Managers.DataManager.data.curStage) {
+        if(idx == DataManager.Instance.data.curStage) {
             button.interactable = true;
         }
         else {

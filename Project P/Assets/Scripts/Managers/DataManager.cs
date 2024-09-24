@@ -2,10 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-public class DataManager
+public class DataManager : MonoBehaviour
 {
-
+    private static DataManager instance;
     public PlayerData data = new PlayerData();
+    public static DataManager Instance {
+        get {
+            if (instance == null) {
+                var obj = FindObjectOfType<DataManager>();
+                if (obj != null) {
+                    instance = obj;
+                }
+            }
+            else {
+                var newObj = new GameObject().AddComponent<DataManager>();
+                instance = newObj;
+            }
+            return instance;
+        }
+    }
+    void Awake() {
+        var objs = FindObjectsOfType<DataManager>();
+        if (objs.Length != 1) {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void LoadData() {
         loadDataFromJson();
     }

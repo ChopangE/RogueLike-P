@@ -11,13 +11,10 @@ public class InGameUI : MonoBehaviour
     public Text Level;
     public Text Hp;
     public Slider HpSlider;
-    public ViewModel viewModel;
     public void Start()
     {
         PlayerControl player = FindObjectOfType<PlayerControl>();
-        viewModel = new ViewModel(player);
         Notifying();
-        viewModel.PropertyChanged += OnPlayerViewModelPropertyChanged;
     }
     
     public void Notifying() {
@@ -27,7 +24,7 @@ public class InGameUI : MonoBehaviour
     }
 
     private void Update() {
-        HpSlider.value = (float)GameManager.instance.pd.curhealth / GameManager.instance.pd.health;
+        //HpSlider.value = (float)GameManager.instance.pd.curhealth / GameManager.instance.pd.health;
     }
 
 
@@ -36,11 +33,5 @@ public class InGameUI : MonoBehaviour
         HpSlider.value = (float)GameManager.instance.pd.curhealth / GameManager.instance.pd.health;
         Hp.text = "HP  " + GameManager.instance.pd.curhealth + "  /  " + GameManager.instance.pd.health;
     }
-    private void OnPlayerViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == "Health")
-        {
-            UIHelathUpdate();
-        }
-    }
+   
 }
