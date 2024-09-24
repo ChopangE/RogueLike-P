@@ -105,10 +105,13 @@ public class GameManager : MonoBehaviour
     public void GoToHome() {
         gameOver.localScale = Vector3.zero;
 <<<<<<< HEAD
+<<<<<<< HEAD
         Managers.DataManager.SetInit();
         Managers.SceneManager_.CallMainScene();
         //ÔøΩ ±ÔøΩ»≠ÔøΩÿæﬂµÔøΩ ÔøΩÔøΩÔøΩ‚º≠ 
 =======
+=======
+>>>>>>> parent of 29006ec3 (Update)
         FindObjectOfType<DataManager>().SetInit(); 
         FindObjectOfType<SceneManager_>().CallMainScene();
         //√ ±‚»≠«ÿæﬂµ  ø©±‚º≠ 
