@@ -369,6 +369,8 @@ public class Monster : Creature
     #region Hit
     void OnHit()
     {
+        base.OnHit();
+
         Vector2 pos;
         Vector2 size;
 
