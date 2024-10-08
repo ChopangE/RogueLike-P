@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;
     public GameObject[] maps;
     public RectTransform gameOver;
+    public RectTransform bossCanvas;
     public InGameUI inGameUI;
     Transform starting;
     bool isLive;
@@ -55,10 +56,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isUIOn) {
             uiPause.Show();
             isUIOn = true;
+            if (bossCanvas.gameObject.activeSelf) {
+                bossCanvas.localScale = Vector3.zero;
+            }
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && isUIOn) {
             uiPause.Hide();
             isUIOn = false;
+            if (bossCanvas.gameObject.activeSelf) {
+                bossCanvas.localScale = new Vector3(0.5f,0.5f,0.5f);
+            }
         }
         
     }

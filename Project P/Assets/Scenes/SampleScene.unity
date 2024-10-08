@@ -493,6 +493,7 @@ MonoBehaviour:
   - {fileID: 1717244316}
   - {fileID: 683919849}
   gameOver: {fileID: 343470867}
+  bossCanvas: {fileID: 683919850}
   inGameUI: {fileID: 1675695778}
 --- !u!1 &103752591
 GameObject:
@@ -2680,6 +2681,11 @@ PrefabInstance:
 --- !u!1 &683919849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8140013800072366392, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
+  m_PrefabInstance: {fileID: 683919848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &683919850 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1112486570820643460, guid: 9303ba5eb190e6244b38e1301b9fd969, type: 3}
   m_PrefabInstance: {fileID: 683919848}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &744900147
