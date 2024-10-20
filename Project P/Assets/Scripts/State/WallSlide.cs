@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class WallSlide : StateMachineBehaviour {
-    Player player;
+    // Player player;
     SpriteRenderer sprite;
     Rigidbody2D rb;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

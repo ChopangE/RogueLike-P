@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AttackState : StateMachineBehaviour
 {
-    Player player;
+    // Player player;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        player = animator.GetComponent<Player>();
-        player.isAttack = true;
+       // player = animator.GetComponent<Player>();
+       // player.isAttack = true;
 
         //    
     }
@@ -22,7 +22,7 @@ public class AttackState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         //animator.GetComponent<Player>().isAttack = false;
         //player.playerState = Player.State.Idle;
-        player.isAttack = false;
+        // player.isAttack = false;
 
     }
 
