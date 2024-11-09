@@ -352,25 +352,13 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * wallSildingSpeed);
     }
     void DownLadding() {
-        Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 2*ladderCheck.bounds.extents.y, 0);
-        //RaycastHit2D hit = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.GetMask("Ladder"));
-        RaycastHit2D hit2 = Physics2D.Raycast(newPos, Vector2.up * inputVec.y, 0.5f, LayerMask.NameToLayer("Ground"));
         RaycastHit2D hit = Physics2D.BoxCast(GroundCheck.transform.position, new Vector2(0.3f, 0.5f), 0, new Vector2(0, -1f), 0.5f,LayerMask.GetMask("Ladder"));
-        //foreach (Collider2D c in colliders) {
-        //    if (c.gameObject.tag == "Ground") {
-        //        groundColl = c;
-        //        Debug.Log("찾음!!");
-        //        //groundColl.enabled = false;
-        //    }
-        //}
         if (hit) {
             isLadder = true;
-            //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
             if(effector == null) {
                 effector = FindObjectOfType<PlatformEffector2D>();
             }
             effector.colliderMask &= ~playerMask;
-            //groundColl = hit2.collider.GetComponent<Collider2D>();
             transform.position += Vector3.down * 0.5f;
             StartLadding();
         }
@@ -405,21 +393,12 @@ public class PlayerControl : MonoBehaviour
 
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
-            //isLadder = true;
             if (isLadder) {
                 break;
             }
         }
     }
-    //void RunningAndJumpingLadderCheck() {
-    //    Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
-    //    foreach (Collider2D collider in colliders) {
-    //        isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
-    //        if (isLadder) {
-    //            break;
-    //        }
-    //    }
-    //}
+    
     void UpdateLadding() {
         if (!isLadder) {
             EndLadding();
@@ -430,6 +409,7 @@ public class PlayerControl : MonoBehaviour
             EndLadding();
             return;
         }
+        //아직 사다리에 매달려있는 상태일 때.
         float direction = inputVec.y;
         if (direction < 0 && CheckGround()) return;
         if(direction == 0) {    
@@ -467,7 +447,6 @@ public class PlayerControl : MonoBehaviour
     }
 
     bool CheckGround() {
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.58f, LayerMask.GetMask("Ground"));
         Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(0.3f, 0.2f), 0);
         bool isLadderOn = false;
         bool isGroundOn = false;
@@ -501,7 +480,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void PlayerMove() {
-        if (isAttack || isWallJump || isDash || isDashAttack || isLadder) return;
+        if (isAttack || isWallJump || isDash || isDashAttack || isLadder) return;   // 다음과 같은 상황에선 움직임 봉쇄
         isFlip();
         rb.AddForce(Vector2.right * inputVec.x, ForceMode2D.Impulse);
         if (rb.velocity.x > maxSpeed) {

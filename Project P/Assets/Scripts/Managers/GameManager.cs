@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
-        
         Stop();
         gameOver.localScale = Vector3.one;
     }
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour
         gameOver.localScale = Vector3.zero;
         FindObjectOfType<DataManager>().SetInit(); 
         FindObjectOfType<SceneManager_>().CallMainScene();
-        //ÃÊ±âÈ­ÇØ¾ßµÊ ¿©±â¼­ 
+        //ï¿½Ê±ï¿½È­ï¿½Ø¾ßµï¿½ ï¿½ï¿½ï¿½â¼­ 
     }
 
 }
