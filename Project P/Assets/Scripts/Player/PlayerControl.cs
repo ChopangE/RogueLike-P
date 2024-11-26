@@ -411,7 +411,7 @@ public class PlayerControl : MonoBehaviour
         }
         //아직 사다리에 매달려있는 상태일 때.
         float direction = inputVec.y;
-        if (direction < 0 && CheckGround()) return;
+        if (direction < 0 && CheckGround()) return; //땅에 닿음 ladding 상태 해제
         if(direction == 0) {    
             StopLadding();
         }
