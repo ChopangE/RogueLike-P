@@ -51,7 +51,6 @@ public class PlayerControl : MonoBehaviour
     public BoxCollider2D ladderCheck;
     public float climbSpeed;
     bool isLadder;
-    public Collider2D groundColl;
     public Transform GroundCheck;
     public PlatformEffector2D effector;
     public LayerMask playerMask;
@@ -173,7 +172,7 @@ public class PlayerControl : MonoBehaviour
     }
     void StateCheck() {
         if (isDead) return;
-        isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);
+        isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallChkDistance, w_Layer);  //벽 감지
         if (isWall) {
             PlayerState = State.Walling;
             isWallJump = false;
@@ -228,11 +227,11 @@ public class PlayerControl : MonoBehaviour
         inputVec.x = context.ReadValue<float>();
         if (context.started) {
             isRun = true;
-            if (PlayerState == State.Croush) { isCroush = false; }
+            if (PlayerState == State.Croush) { isCroush = false; }          //웅크린 상태였다면 해제
         }
         if (context.canceled) {
             isRun = false;
-            if (PlayerState == State.Running) { rb.velocity = Vector2.zero; }
+            if (PlayerState == State.Running) { rb.velocity = Vector2.zero; }       //달리는 상태였다면 멈춤
         }
     }
     public void ActionJump(InputAction.CallbackContext context) {
@@ -243,7 +242,7 @@ public class PlayerControl : MonoBehaviour
                 case State.Idle:
                 case State.Jumping:
                 case State.Falling:
-                    if (jumpCount < 2) {
+                    if (jumpCount < 2) {        //최대 점프 카운트 2번
                         rb.velocity = Vector2.zero;
                         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                         jumpCount++;
@@ -251,14 +250,14 @@ public class PlayerControl : MonoBehaviour
                     break;
                 case State.Walling:
                     isWallJump = true;
-                    Invoke("FreezeMove", 0.3f);
-                    Vector2 WallJumpDir = new Vector2(-isRight * wallJumpPowerSide, wallJumpPowerUp);
+                    Invoke("FreezeMove", 0.3f);     //0.3초동안 움직임 봉쇄
+                    Vector2 WallJumpDir = new Vector2(-isRight * wallJumpPowerSide, wallJumpPowerUp);   //반대쪽 점프
                     rb.velocity = WallJumpDir;
-                    FlipPlayer();
+                    FlipPlayer();   //캐릭터 좌우반전
                     jumpCount += 1;                  
                     break;
                 case State.Ladding:
-                    if (inputVec.y == 0) {
+                    if (inputVec.y == 0) {          //위로 점프하는 것 방지->좌우로만 점프 가능
                         isLadder = false;
                         rb.AddForce(inputVec * jumpPower, ForceMode2D.Impulse);
                         jumpCount++;
@@ -268,9 +267,8 @@ public class PlayerControl : MonoBehaviour
             
         }
         else if (context.canceled) {
-            if (rb.velocity.y > 0)
+            if (rb.velocity.y > 0)              //점프 강도 조절
                 rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y * 0.5f);
-            
         }
     }
     public void ActionAttack(InputAction.CallbackContext context) {
@@ -284,14 +282,14 @@ public class PlayerControl : MonoBehaviour
                         rb.velocity = Vector2.zero;
                         anim.SetTrigger("Attack");
                         isAttack = true;
-                        StartCoroutine(attackCoolTime(attackCurTime));
+                        StartCoroutine(attackCoolTime(attackCurTime));  //공격 쿨타임
                     }
                     break;
                 case State.Attacking:
-                    anim.SetTrigger("FollowingAttack");
+                    anim.SetTrigger("FollowingAttack");     //후속 공격
                     break;
                 case State.Dashing:
-                    isDashAttack = true;
+                    isDashAttack = true;            //대시 어택
                     break;
 
             }
@@ -384,12 +382,7 @@ public class PlayerControl : MonoBehaviour
     }
     void LadderCheck() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
-        foreach (Collider2D collider in colliders) {
-            if (!groundColl && (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))) {    //���׼���
-                groundColl = collider;
-                break;
-            }
-        }
+        
 
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
@@ -418,7 +411,6 @@ public class PlayerControl : MonoBehaviour
         else {
             GoLadding();
         }
-
     }
     void GoLadding() {
         rb.velocity = new Vector2(0, inputVec.y * climbSpeed);
@@ -431,12 +423,7 @@ public class PlayerControl : MonoBehaviour
         anim.speed = 0f;
     }
     void EndLadding() {
-        if (groundColl) {
-            groundColl.enabled = true;
-            groundColl = null;
-        }
-        //if (groundColl) groundColl = null;
-        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+       
         if (effector == null) {
             effector = FindObjectOfType<PlatformEffector2D>();
         }
@@ -447,20 +434,23 @@ public class PlayerControl : MonoBehaviour
     }
 
     bool CheckGround() {
+        
+        //발 밑을 체크
         Collider2D[] colliders = Physics2D.OverlapBoxAll(GroundCheck.transform.position, new Vector2(0.3f, 0.2f), 0);
+
         bool isLadderOn = false;
         bool isGroundOn = false;
         
         foreach (var coll in colliders) {
             if(coll.gameObject.tag == "Ground" ) {
                 isGroundOn = true;
-               
             }
             else if(coll.gameObject.tag == "Ladder") {
                 isLadderOn = true;
             }
         }
         if (!isLadderOn && isGroundOn) {
+            //발 밑에 Ground만 있고 Ladder는 없는 상황
             EndLadding();
             rb.velocity = Vector2.zero;
             return true;
