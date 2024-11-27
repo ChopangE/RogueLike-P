@@ -236,6 +236,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void ActionJump(InputAction.CallbackContext context) {
         if (isDead) return;
+        
         if (context.started) {
             switch (PlayerState) {
                 case State.Running:
@@ -351,16 +352,16 @@ public class PlayerControl : MonoBehaviour
     }
     void DownLadding() {
         RaycastHit2D hit = Physics2D.BoxCast(GroundCheck.transform.position, new Vector2(0.3f, 0.5f), 0, new Vector2(0, -1f), 0.5f,LayerMask.GetMask("Ladder"));
-        if (hit) {
+        if (hit) {          //발 밑에 사다리가 있는 경우
             isLadder = true;
             if(effector == null) {
                 effector = FindObjectOfType<PlatformEffector2D>();
             }
-            effector.colliderMask &= ~playerMask;
+            effector.colliderMask &= ~playerMask;           //effector와 상호작용 해제
             transform.position += Vector3.down * 0.5f;
             StartLadding();
         }
-        else {
+        else {              // 발 밑에 사다리가 없는 경우 -> 웅크리기
             isCroush = true;
         }
     }
@@ -383,7 +384,6 @@ public class PlayerControl : MonoBehaviour
     void LadderCheck() {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(ladderCheck.bounds.center, ladderCheck.bounds.extents, 0);
         
-
         foreach (Collider2D collider in colliders) {
             isLadder = collider.gameObject.layer == LayerMask.NameToLayer("Ladder");
             if (isLadder) {
@@ -427,7 +427,7 @@ public class PlayerControl : MonoBehaviour
         if (effector == null) {
             effector = FindObjectOfType<PlatformEffector2D>();
         }
-        effector.colliderMask |= playerMask;
+        effector.colliderMask |= playerMask;            //effector와 player collider 상호작용 On
         isLadder = false;
         gravity = 1;
         anim.speed = 1f;
@@ -480,7 +480,7 @@ public class PlayerControl : MonoBehaviour
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
         if(inputVec.y > 0 && !isLadder)
-        StartLadding();
+            StartLadding();
     }
 
     void FreezeMove() {
